@@ -5,6 +5,7 @@ use App\OpenLiga\Clients\Client;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\SeasonService;
+use Illuminate\Support\Collection;
 use Mockery;
 use Tests\TestCase;
 
@@ -44,21 +45,23 @@ class SeasonServiceTest extends TestCase
         $seasonService = new SeasonService($this->openLigaClient);
 
         $currentSeason = $seasonService->getCurrentSeason();
-        $roundsCollection = collect($currentSeason->rounds);
+        $rounds = $currentSeason->rounds;
+
+        $this->assertInstanceOf(Collection::class, $rounds, 'Rounds are no Collection!');
 
         $this->assertFalse(
-            $roundsCollection->isEmpty(),
+            $rounds->isEmpty(),
             'Current season has no rounds!'
         );
 
         $this->assertEmpty(
-            $roundsCollection->first(function ($item) {
+            $rounds->first(function ($item) {
                 return $item instanceof SeasonRound === false;
             }),
             'Rounds collection contains items which are not rounds!'
         );
 
-        $this->assertEquals(7, count($roundsCollection), 'Incorrect amount of rounds!');
+        $this->assertEquals(7, count($rounds), 'Incorrect amount of rounds!');
     }
 
     /**
@@ -69,10 +72,10 @@ class SeasonServiceTest extends TestCase
         $seasonService = new SeasonService($this->openLigaClient);
 
         $currentSeason = $seasonService->getCurrentSeason();
-        $roundsCollection = collect($currentSeason->rounds);
+        $rounds = $currentSeason->rounds;
 
         $this->assertEmpty(
-            $roundsCollection->first(function ($round) {
+            $rounds->first(function ($round) {
                 return strlen($round->name) === 0;
             }),
             'Rounds collection contains rounds without names!'
@@ -80,12 +83,12 @@ class SeasonServiceTest extends TestCase
 
         $this->assertEquals(
             '1. Spieltag',
-            $roundsCollection->first()->name
+            $rounds->first()->name
         );
 
         $this->assertEquals(
             '7. Spieltag',
-            $roundsCollection->last()->name
+            $rounds->last()->name
         );
     }
 
