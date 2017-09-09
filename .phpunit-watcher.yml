@@ -6,7 +6,6 @@ watch:
     - database
     - resources
     - routes
-    - tests
   fileMask: '*.php'
 notifications:
   passingTests: false
