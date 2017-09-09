@@ -4,6 +4,7 @@ namespace Tests\Features;
 use App\OpenLiga\Entities\Match;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonRound;
+use App\OpenLiga\Entities\Team;
 use App\OpenLiga\SeasonDataService;
 use Mockery;
 use Tests\TestCase;
@@ -37,8 +38,8 @@ class ViewMatchListingTest extends TestCase
                                 new Match([
                                     'dateTime' => '2017-12-15 15:30',
                                     'finished' => true,
-                                    'team1' => ["name" => "Hamburger SV"],
-                                    'team2' => ["name" => "Bayern München"],
+                                    'team1' => new Team(["name" => "Hamburger SV"]),
+                                    'team2' => new Team(["name" => "Bayern München"]),
                                     "results" =>
                                         [
                                             [
@@ -54,8 +55,8 @@ class ViewMatchListingTest extends TestCase
                                 new Match([
                                     'dateTime' => '2017-12-15 15:30',
                                     'finished' => true,
-                                    'team1' => ["name" => "St. Pauli"],
-                                    'team2' => ["name" => "Werder Bremen"],
+                                    'team1' => new Team(["name" => "St. Pauli"]),
+                                    'team2' => new Team(["name" => "Werder Bremen"]),
                                     "results" =>
                                         [
                                             [
@@ -76,8 +77,8 @@ class ViewMatchListingTest extends TestCase
                                 new Match([
                                     'dateTime' => '2017-12-22 15:30',
                                     'finished' => false,
-                                    'team1' => ["name" => "Hamburger SV"],
-                                    'team2' => ["name" => "Bayern München"],
+                                    'team1' => new Team(["name" => "Hamburger SV"]),
+                                    'team2' => new Team(["name" => "Bayern München"]),
                                     "results" =>
                                         [
                                             [
@@ -93,8 +94,8 @@ class ViewMatchListingTest extends TestCase
                                 new Match([
                                     'dateTime' => '2017-12-22 15:30',
                                     'finished' => false,
-                                    'team1' => ["name" => "St. Mauli"],
-                                    'team2' => ["name" => "Lok Leipzig"],
+                                    'team1' => new Team(["name" => "St. Mauli"]),
+                                    'team2' => new Team(["name" => "Lok Leipzig"]),
                                     "results" =>
                                         [
                                             [
