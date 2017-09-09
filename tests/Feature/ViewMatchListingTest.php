@@ -29,7 +29,7 @@ class ViewMatchListingTest extends TestCase
     public function user_can_view_list_of_all_matches_of_current_season()
     {
         $this->seasonDataService
-            ->shouldReceive('getAllMatchesForCurrentSeason')
+            ->shouldReceive('getCurrentSeason')
             ->andReturn(
                 new Season([
                     'name' => '1. Fußball-Bundesliga 2017/2018',
