@@ -1,0 +1,13 @@
+watch:
+  directories:
+    - app
+    - tests
+    - bootstrap
+    - database
+    - resources
+    - routes
+    - tests
+  fileMask: '*.php'
+notifications:
+  passingTests: false
+  failingTests: false
