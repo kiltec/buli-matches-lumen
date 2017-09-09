@@ -54,6 +54,8 @@ class SeasonServiceTest extends TestCase
             'Current season has no rounds!'
         );
 
+        $this->assertEquals(7, count($rounds), 'Incorrect amount of rounds!');
+
         $this->assertEmpty(
             $rounds->first(function ($item) {
                 return $item instanceof SeasonRound === false;
@@ -61,7 +63,6 @@ class SeasonServiceTest extends TestCase
             'Rounds collection contains items which are not rounds!'
         );
 
-        $this->assertEquals(7, count($rounds), 'Incorrect amount of rounds!');
     }
 
     /**
