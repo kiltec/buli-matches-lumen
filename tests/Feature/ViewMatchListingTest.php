@@ -1,6 +1,7 @@
 <?php
 namespace Tests\Features;
 
+use App\OpenLiga\Entities\Season;
 use App\OpenLiga\SeasonDataService;
 use Mockery;
 use Tests\TestCase;
@@ -25,9 +26,9 @@ class ViewMatchListingTest extends TestCase
         $this->seasonDataService
             ->shouldReceive('getAllMatchesForCurrentSeason')
             ->andReturn(
-                collect([
-                    'seasonName' => '1. Fußball-Bundesliga 2017/2018',
-                    'rounds' =>[
+                new Season([
+                    'name' => '1. Fußball-Bundesliga 2017/2018',
+                    'rounds' => collect([
                         [
                             'roundName' => '1. Spieltag',
                             'matches' => [
@@ -104,7 +105,7 @@ class ViewMatchListingTest extends TestCase
                                 ],
                             ]
                         ],
-                    ]
+                    ])
                 ])
             )->once();
 

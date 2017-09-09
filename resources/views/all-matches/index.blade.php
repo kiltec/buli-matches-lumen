@@ -10,9 +10,9 @@
               integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     </head>
     <body>
-        <h1>{{ $seasonAllMatches->get('seasonName') }}</h1>
+        <h1>{{ $season->name }}</h1>
             <ul id="match-days">
-                @foreach($seasonAllMatches->get('rounds') as $round)
+                @foreach($season->rounds as $round)
                 <li>
                     <h2>{{ $round['roundName'] }}</h2>
                     <ul id="match-day">
