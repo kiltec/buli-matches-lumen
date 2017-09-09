@@ -2,6 +2,7 @@
 namespace Tests\Features;
 
 use App\OpenLiga\Entities\Season;
+use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\SeasonDataService;
 use Mockery;
 use Tests\TestCase;
@@ -29,9 +30,9 @@ class ViewMatchListingTest extends TestCase
                 new Season([
                     'name' => '1. Fußball-Bundesliga 2017/2018',
                     'rounds' => collect([
-                        [
-                            'roundName' => '1. Spieltag',
-                            'matches' => [
+                        new SeasonRound([
+                            'name' => '1. Spieltag',
+                            'matches' => collect([
                                 [
                                     'dateTime' => '2017-12-15 15:30',
                                     'finished' => true,
@@ -65,11 +66,11 @@ class ViewMatchListingTest extends TestCase
                                             ]
                                         ],
                                 ],
-                            ]
-                        ],
-                        [
-                            'roundName' => '2. Spieltag',
-                            'matches' => [
+                            ])
+                        ]),
+                        new SeasonRound([
+                            'name' => '2. Spieltag',
+                            'matches' => collect([
                                 [
                                     'dateTime' => '2017-12-22 15:30',
                                     'finished' => false,
@@ -103,8 +104,8 @@ class ViewMatchListingTest extends TestCase
                                             ],
                                         ],
                                 ],
-                            ]
-                        ],
+                            ])
+                        ]),
                     ])
                 ])
             )->once();

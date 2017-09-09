@@ -14,9 +14,9 @@
             <ul id="match-days">
                 @foreach($season->rounds as $round)
                 <li>
-                    <h2>{{ $round['roundName'] }}</h2>
+                    <h2>{{ $round->name }}</h2>
                     <ul id="match-day">
-                        @foreach($round['matches'] as $match)
+                        @foreach($round->matches as $match)
                         <li>
                             {{ $match['dateTime'] }}
                             {{ $match['team1']['name'] }} vs. {{ $match['team2']['name'] }}
