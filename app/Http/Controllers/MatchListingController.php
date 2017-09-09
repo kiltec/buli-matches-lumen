@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\OpenLiga\SeasonDataService;
+use App\OpenLiga\SeasonService;
 
 class MatchListingController extends Controller
 {
     /**
-     * @var SeasonDataService
+     * @var SeasonService
      */
     private $seasonDataService;
 
-    public function __construct(SeasonDataService $seasonDataService)
+    public function __construct(SeasonService $seasonDataService)
     {
         $this->seasonDataService = $seasonDataService;
     }

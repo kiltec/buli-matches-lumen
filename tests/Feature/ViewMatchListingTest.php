@@ -7,28 +7,28 @@ use App\OpenLiga\Entities\Score;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\Entities\Team;
-use App\OpenLiga\SeasonDataService;
+use App\OpenLiga\SeasonService;
 use Mockery;
 use Tests\TestCase;
 
 class ViewMatchListingTest extends TestCase
 {
 
-    private $seasonDataService;
+    private $seasonService;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->seasonDataService = Mockery::mock(SeasonDataService::class);
-        $this->app->instance(SeasonDataService::class, $this->seasonDataService);
+        $this->seasonService = Mockery::mock(SeasonService::class);
+        $this->app->instance(SeasonService::class, $this->seasonService);
     }
     /**
      * @test
      */
     public function user_can_view_list_of_all_matches_of_current_season()
     {
-        $this->seasonDataService
+        $this->seasonService
             ->shouldReceive('getCurrentSeason')
             ->andReturn(
                 new Season([

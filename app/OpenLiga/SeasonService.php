@@ -8,7 +8,7 @@
 
 namespace App\OpenLiga;
 
-class SeasonDataService
+class SeasonService
 {
 
     public function getCurrentSeason()
