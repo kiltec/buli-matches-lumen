@@ -10,24 +10,27 @@ use Tests\TestCase;
 
 class SeasonServiceTest extends TestCase
 {
+    private $openLigaClient;
+
     public function setUp()
     {
         parent::setup();
 
+        $this->openLigaClient = Mockery::mock(Client::class);
+        $this->openLigaClient
+            ->shouldReceive('fetchCurrentSeason')
+            ->andReturn(
+                $this->seasonData()
+            )->once();
     }
+
+
     /**
      * @test
      */
     public function current_season_has_correct_name()
     {
-        $openLigaClient = Mockery::mock(Client::class);
-        $openLigaClient
-            ->shouldReceive('fetchCurrentSeason')
-            ->andReturn(
-                $this->seasonData()
-            )->once();
-
-        $seasonService = new SeasonService($openLigaClient);
+        $seasonService = new SeasonService($this->openLigaClient);
 
         $currentSeason = $seasonService->getCurrentSeason();
         $this->assertEquals('1. Fußball-Bundesliga 2017/2018', $currentSeason->name);
@@ -38,14 +41,7 @@ class SeasonServiceTest extends TestCase
      */
     public function current_season_has_rounds()
     {
-        $openLigaClient = Mockery::mock(Client::class);
-        $openLigaClient
-            ->shouldReceive('fetchCurrentSeason')
-            ->andReturn(
-                $this->seasonData()
-            )->once();
-
-        $seasonService = new SeasonService($openLigaClient);
+        $seasonService = new SeasonService($this->openLigaClient);
 
         $currentSeason = $seasonService->getCurrentSeason();
         $roundsCollection = collect($currentSeason->rounds);
