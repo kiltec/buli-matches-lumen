@@ -62,6 +62,34 @@ class SeasonServiceTest extends TestCase
     }
 
     /**
+     * @test
+     */
+    public function current_season_rounds_have_names()
+    {
+        $seasonService = new SeasonService($this->openLigaClient);
+
+        $currentSeason = $seasonService->getCurrentSeason();
+        $roundsCollection = collect($currentSeason->rounds);
+
+        $this->assertEmpty(
+            $roundsCollection->first(function ($round) {
+                return strlen($round->name) === 0;
+            }),
+            'Rounds collection contains rounds without names!'
+        );
+
+        $this->assertEquals(
+            '1. Spieltag',
+            $roundsCollection->first()->name
+        );
+
+        $this->assertEquals(
+            '7. Spieltag',
+            $roundsCollection->last()->name
+        );
+    }
+
+    /**
      * This is not a full season but only up to round 7.
      * Should be enough to be meaningful.
      */

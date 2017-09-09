@@ -24,9 +24,9 @@ class SeasonService
 
         $rounds = $allMatches
             ->groupBy('Group.GroupOrderID')
-            ->map(function($item) {
+            ->map(function($matchData) {
                 return new SeasonRound([
-                    'name' => '',
+                    'name' => array_get($matchData[0], 'Group.GroupName'),
                     'matches' => '',
                 ]);
             });
