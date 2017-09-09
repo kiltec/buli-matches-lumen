@@ -2,6 +2,7 @@
 namespace Tests\Features;
 
 use App\OpenLiga\Entities\Match;
+use App\OpenLiga\Entities\MatchResults;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\Entities\Team;
@@ -41,16 +42,12 @@ class ViewMatchListingTest extends TestCase
                                     'team1' => new Team(["name" => "Hamburger SV"]),
                                     'team2' => new Team(["name" => "Bayern München"]),
                                     "results" =>
-                                        [
-                                            [
-                                                "pointsTeam1" => 0,
-                                                "pointsTeam2" => 0,
-                                            ],
-                                            [
+                                        new MatchResults([
+                                            'finalScore' => [
                                                 "pointsTeam1" => 10,
                                                 "pointsTeam2" => 2,
                                             ]
-                                        ],
+                                        ]),
                                 ]),
                                 new Match([
                                     'dateTime' => '2017-12-15 15:30',
@@ -58,16 +55,12 @@ class ViewMatchListingTest extends TestCase
                                     'team1' => new Team(["name" => "St. Pauli"]),
                                     'team2' => new Team(["name" => "Werder Bremen"]),
                                     "results" =>
-                                        [
-                                            [
-                                                "pointsTeam1" => 0,
-                                                "pointsTeam2" => 0,
-                                            ],
-                                            [
+                                        new MatchResults([
+                                            'finalScore' => [
                                                 "pointsTeam1" => 4,
                                                 "pointsTeam2" => 2,
                                             ]
-                                        ],
+                                        ]),
                                 ]),
                             ])
                         ]),
@@ -80,16 +73,12 @@ class ViewMatchListingTest extends TestCase
                                     'team1' => new Team(["name" => "Hamburger SV"]),
                                     'team2' => new Team(["name" => "Bayern München"]),
                                     "results" =>
-                                        [
-                                            [
+                                        new MatchResults([
+                                            'finalScore' => [
                                                 "pointsTeam1" => 0,
                                                 "pointsTeam2" => 0,
                                             ],
-                                            [
-                                                "pointsTeam1" => 0,
-                                                "pointsTeam2" => 0,
-                                            ],
-                                        ],
+                                        ]),
                                 ]),
                                 new Match([
                                     'dateTime' => '2017-12-22 15:30',
@@ -97,16 +86,12 @@ class ViewMatchListingTest extends TestCase
                                     'team1' => new Team(["name" => "St. Mauli"]),
                                     'team2' => new Team(["name" => "Lok Leipzig"]),
                                     "results" =>
-                                        [
-                                            [
+                                        new MatchResults([
+                                            'finalScore' => [
                                                 "pointsTeam1" => 0,
                                                 "pointsTeam2" => 0,
                                             ],
-                                            [
-                                                "pointsTeam1" => 0,
-                                                "pointsTeam2" => 0,
-                                            ],
-                                        ],
+                                        ]),
                                 ]),
                             ])
                         ]),
