@@ -3,16 +3,22 @@ namespace Tests\Unit\OpenLiga;
 
 use App\OpenLiga\Clients\Client;
 use App\OpenLiga\Entities\Season;
+use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\SeasonService;
 use Mockery;
 use Tests\TestCase;
 
 class SeasonServiceTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setup();
+
+    }
     /**
      * @test
      */
-    public function current_season_has_a_name()
+    public function current_season_has_correct_name()
     {
         $openLigaClient = Mockery::mock(Client::class);
         $openLigaClient
