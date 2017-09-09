@@ -3,6 +3,7 @@ namespace Tests\Features;
 
 use App\OpenLiga\Entities\Match;
 use App\OpenLiga\Entities\MatchResults;
+use App\OpenLiga\Entities\Score;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\Entities\Team;
@@ -43,10 +44,10 @@ class ViewMatchListingTest extends TestCase
                                     'team2' => new Team(["name" => "Bayern München"]),
                                     "results" =>
                                         new MatchResults([
-                                            'finalScore' => [
+                                            'finalScore' => new Score([
                                                 "pointsTeam1" => 10,
                                                 "pointsTeam2" => 2,
-                                            ]
+                                            ])
                                         ]),
                                 ]),
                                 new Match([
@@ -56,10 +57,10 @@ class ViewMatchListingTest extends TestCase
                                     'team2' => new Team(["name" => "Werder Bremen"]),
                                     "results" =>
                                         new MatchResults([
-                                            'finalScore' => [
+                                            'finalScore' => new Score([
                                                 "pointsTeam1" => 4,
                                                 "pointsTeam2" => 2,
-                                            ]
+                                            ])
                                         ]),
                                 ]),
                             ])
@@ -74,10 +75,10 @@ class ViewMatchListingTest extends TestCase
                                     'team2' => new Team(["name" => "Bayern München"]),
                                     "results" =>
                                         new MatchResults([
-                                            'finalScore' => [
+                                            'finalScore' => new Score([
                                                 "pointsTeam1" => 0,
                                                 "pointsTeam2" => 0,
-                                            ],
+                                            ]),
                                         ]),
                                 ]),
                                 new Match([
@@ -87,10 +88,10 @@ class ViewMatchListingTest extends TestCase
                                     'team2' => new Team(["name" => "Lok Leipzig"]),
                                     "results" =>
                                         new MatchResults([
-                                            'finalScore' => [
+                                            'finalScore' => new Score([
                                                 "pointsTeam1" => 0,
                                                 "pointsTeam2" => 0,
-                                            ],
+                                            ]),
                                         ]),
                                 ]),
                             ])
