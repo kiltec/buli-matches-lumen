@@ -34,6 +34,38 @@ class SeasonServiceTest extends TestCase
     }
 
     /**
+     * @test
+     */
+    public function current_season_has_rounds()
+    {
+        $openLigaClient = Mockery::mock(Client::class);
+        $openLigaClient
+            ->shouldReceive('fetchCurrentSeason')
+            ->andReturn(
+                $this->seasonData()
+            )->once();
+
+        $seasonService = new SeasonService($openLigaClient);
+
+        $currentSeason = $seasonService->getCurrentSeason();
+        $roundsCollection = collect($currentSeason->rounds);
+
+        $this->assertFalse(
+            $roundsCollection->isEmpty(),
+            'Current season has no rounds!'
+        );
+
+        $this->assertEmpty(
+            $roundsCollection->first(function ($item) {
+                return $item instanceof SeasonRound === false;
+            }),
+            'Rounds collection contains items which are not rounds!'
+        );
+
+        $this->assertEquals(7, count($roundsCollection), 'Incorrect amount of rounds!');
+    }
+
+    /**
      * This is not a full season but only up to round 7.
      * Should be enough to be meaningful.
      */

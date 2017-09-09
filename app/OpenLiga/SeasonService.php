@@ -3,6 +3,7 @@ namespace App\OpenLiga;
 
 use App\OpenLiga\Clients\Client;
 use App\OpenLiga\Entities\Season;
+use App\OpenLiga\Entities\SeasonRound;
 
 class SeasonService
 {
@@ -21,9 +22,18 @@ class SeasonService
 
         $seasonName = $allMatches->first()['LeagueName'];
 
+        $rounds = $allMatches
+            ->groupBy('Group.GroupOrderID')
+            ->map(function($item) {
+                return new SeasonRound([
+                    'name' => '',
+                    'matches' => '',
+                ]);
+            });
+
         return new Season([
             'name' => $seasonName,
-            'rounds' => [],
+            'rounds' => $rounds,
         ]);
     }
 }
