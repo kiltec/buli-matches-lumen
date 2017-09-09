@@ -11,3 +11,7 @@
 |
 */
 
+$router->get('all-matches', [
+    'as' => 'all-matches',
+    'uses' => 'MatchListingController@index'
+]);
