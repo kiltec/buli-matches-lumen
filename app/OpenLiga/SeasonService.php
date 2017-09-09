@@ -1,18 +1,29 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: lars
- * Date: 09.09.17
- * Time: 18:23
- */
-
 namespace App\OpenLiga;
+
+use App\OpenLiga\Clients\Client;
+use App\OpenLiga\Entities\Season;
 
 class SeasonService
 {
+    /**
+     * @var Client
+     */
+    private $client;
 
-    public function getCurrentSeason()
+    public function __construct(Client $client)
     {
-        return;
+        $this->client = $client;
+    }
+    public function getCurrentSeason(): Season
+    {
+        $allMatches = collect($this->client->fetchCurrentSeason());
+
+        $seasonName = $allMatches->first()['LeagueName'];
+
+        return new Season([
+            'name' => $seasonName,
+            'rounds' => [],
+        ]);
     }
 }
