@@ -1,6 +1,7 @@
 <?php
 namespace Tests\Features;
 
+use App\OpenLiga\Entities\Match;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\SeasonDataService;
@@ -33,7 +34,7 @@ class ViewMatchListingTest extends TestCase
                         new SeasonRound([
                             'name' => '1. Spieltag',
                             'matches' => collect([
-                                [
+                                new Match([
                                     'dateTime' => '2017-12-15 15:30',
                                     'finished' => true,
                                     'team1' => ["name" => "Hamburger SV"],
@@ -49,7 +50,8 @@ class ViewMatchListingTest extends TestCase
                                                 "pointsTeam2" => 2,
                                             ]
                                         ],
-                                ], [
+                                ]),
+                                new Match([
                                     'dateTime' => '2017-12-15 15:30',
                                     'finished' => true,
                                     'team1' => ["name" => "St. Pauli"],
@@ -65,13 +67,13 @@ class ViewMatchListingTest extends TestCase
                                                 "pointsTeam2" => 2,
                                             ]
                                         ],
-                                ],
+                                ]),
                             ])
                         ]),
                         new SeasonRound([
                             'name' => '2. Spieltag',
                             'matches' => collect([
-                                [
+                                new Match([
                                     'dateTime' => '2017-12-22 15:30',
                                     'finished' => false,
                                     'team1' => ["name" => "Hamburger SV"],
@@ -87,7 +89,8 @@ class ViewMatchListingTest extends TestCase
                                                 "pointsTeam2" => 0,
                                             ],
                                         ],
-                                ], [
+                                ]),
+                                new Match([
                                     'dateTime' => '2017-12-22 15:30',
                                     'finished' => false,
                                     'team1' => ["name" => "St. Mauli"],
@@ -103,7 +106,7 @@ class ViewMatchListingTest extends TestCase
                                                 "pointsTeam2" => 0,
                                             ],
                                         ],
-                                ],
+                                ]),
                             ])
                         ]),
                     ])

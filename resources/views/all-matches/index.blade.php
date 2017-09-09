@@ -18,10 +18,10 @@
                     <ul id="match-day">
                         @foreach($round->matches as $match)
                         <li>
-                            {{ $match['dateTime'] }}
-                            {{ $match['team1']['name'] }} vs. {{ $match['team2']['name'] }}
-                            @if($match['finished'])
-                            {{ $match['results'][1]['pointsTeam1']}}:{{ $match['results'][1]['pointsTeam2'] }}
+                            {{ $match->dateTime }}
+                            {{ $match->team1['name'] }} vs. {{ $match->team2['name'] }}
+                            @if($match->finished)
+                            {{ $match->results[1]['pointsTeam1']}}:{{ $match->results[1]['pointsTeam2'] }}
                             @else
                             -:-
                             @endif
