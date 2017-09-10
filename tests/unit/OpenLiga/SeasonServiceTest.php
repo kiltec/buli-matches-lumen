@@ -2,9 +2,14 @@
 namespace Tests\Unit\OpenLiga;
 
 use App\OpenLiga\Clients\Client;
+use App\OpenLiga\Entities\Match;
+use App\OpenLiga\Entities\MatchResults;
+use App\OpenLiga\Entities\Score;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonRound;
+use App\OpenLiga\Entities\Team;
 use App\OpenLiga\SeasonService;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Mockery;
 use Tests\TestCase;
@@ -91,6 +96,90 @@ class SeasonServiceTest extends TestCase
             '7. Spieltag',
             $rounds->last()->name
         );
+    }
+
+    /**
+     * @test
+     */
+    public function current_season_rounds_have_matches()
+    {
+        $seasonService = new SeasonService($this->openLigaClient);
+
+        $currentSeason = $seasonService->getCurrentSeason();
+        $rounds = $currentSeason->rounds;
+
+        $matchesFirstRound = $rounds->first()->matches;
+        $matchesLastRound = $rounds->last()->matches;
+
+        $this->assertInstanceOf(Collection::class, $matchesFirstRound, 'Matches of first round are no Collection!');
+        $this->assertInstanceOf(Collection::class, $matchesLastRound, 'Matches of last round are no Collection!');
+
+        $this->assertFalse(
+            $matchesFirstRound->isEmpty(),
+            'First round has no matches!'
+        );
+
+        $this->assertFalse(
+            $matchesLastRound->isEmpty(),
+            'Last round has no matches!'
+        );
+
+        $this->assertEquals(9, count($matchesFirstRound), 'Incorrect amount of matches for first round!');
+        $this->assertEquals(8, count($matchesLastRound), 'Incorrect amount of matches for last round!');
+
+        $this->assertEmpty(
+            $matchesFirstRound->first(function ($item) {
+                return $item instanceof Match === false;
+            }),
+            'Matches collection contains items which are not matches!'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function current_season_matches_have_correct_data()
+    {
+        $seasonService = new SeasonService($this->openLigaClient);
+
+        $currentSeason = $seasonService->getCurrentSeason();
+
+        /**
+         * @var $matchesFirstRound Collection
+         */
+        $matchesFirstRound = $currentSeason->rounds->first()->matches;
+
+        $matchesFirstRound->each(function($match) {
+            $this->assertTrue(strlen($match->dateTime) > 0, 'No dateTime set for match!');
+            $this->assertInternalType( 'bool', $match->finished, 'Property finished is no bool!');
+            $this->assertInstanceOf( Team::class, $match->team1, 'team1 is no Team!');
+            $this->assertInstanceOf( Team::class, $match->team2, 'team2 is no Team!');
+            if ($match->finished) {
+                $this->assertInstanceOf( MatchResults::class, $match->results, 'results is no MatchResult!');
+                $this->assertInstanceOf( Score::class, $match->results->finalScore, 'finalScore is no Score!');
+                $this->assertInternalType( 'int', $match->results->finalScore->pointsTeam1, 'pointsTeam1 is no integer!');
+                $this->assertInternalType( 'int', $match->results->finalScore->pointsTeam2, 'pointsTeam2 is no integer!');
+            } else {
+                $this->assertEquals(null, $match->results, 'results should be null!');
+            }
+        });
+
+        $firstMatch = $matchesFirstRound->first();
+
+        $this->assertEquals('2017-08-18 20:30:00', $firstMatch->dateTime);
+        $this->assertEquals(true, $firstMatch->finished);
+        $this->assertEquals('Bayern München', $firstMatch->team1->name);
+        $this->assertEquals('Bayer 04 Leverkusen', $firstMatch->team2->name);
+        $this->assertEquals('3', $firstMatch->results->finalScore->pointsTeam1);
+        $this->assertEquals('1', $firstMatch->results->finalScore->pointsTeam2);
+
+        $lastMatch = $currentSeason->rounds->last()->matches->last();
+
+        $this->assertEquals('2017-10-01 15:30:00', $lastMatch->dateTime);
+        $this->assertEquals(false, $lastMatch->finished);
+        $this->assertEquals('Hertha BSC', $lastMatch->team1->name);
+        $this->assertEquals('Bayern München', $lastMatch->team2->name);
+        $this->assertEquals(null, $lastMatch->results);
     }
 
     /**
