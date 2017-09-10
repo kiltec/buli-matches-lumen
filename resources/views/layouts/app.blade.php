@@ -10,9 +10,24 @@
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
-    @yield('content')
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('upcoming-matches') }}">Upcoming Matches</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('all-matches', ['year' => 2017]) }}">All Matches</a>
+            </li>
+        </ul>
+    </div>
 </div>
+    <div class="container">
+        @yield('content')
+    </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
