@@ -13,8 +13,7 @@
                                 {{ $match->dateTime }}
                                 {{ $match->team1->name }} vs. {{ $match->team2->name }}
                                 @if($match->finished)
-                                    {{ $match->results->finalScore->pointsTeam1 }}
-                                    :{{ $match->results->finalScore->pointsTeam2 }}
+                                    {{ $match->results->finalScore->pointsTeam1 }}:{{ $match->results->finalScore->pointsTeam2 }}
                                 @else
                                     -:-
                                 @endif
