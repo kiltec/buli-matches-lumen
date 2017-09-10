@@ -16,6 +16,9 @@ use Tests\TestCase;
 
 class SeasonServiceTest extends TestCase
 {
+    /**
+     * @var Mockery\Mock
+     */
     private $openLigaClient;
 
     public function setUp()
