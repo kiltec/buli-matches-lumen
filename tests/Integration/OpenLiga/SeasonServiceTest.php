@@ -221,6 +221,30 @@ class SeasonServiceTest extends TestCase
         $this->assertInstanceOf(MatchList::class, $matchList);
     }
 
+    /**
+     * @test
+     */
+    public function it_returns_empty_match_list_when_no_upcoming_current_matches_and_no_next_round_available()
+    {
+        $openLigaClient = Mockery::mock(Client::class);
+        $openLigaClient
+            ->shouldReceive('fetchCurrentRoundMatches')
+            ->andReturn(
+                $this->aCurrentRoundWithNoUnfinishedMatches()
+            )->once();
+
+        $openLigaClient
+            ->shouldReceive('fetchMatchesForRound')
+            ->never();
+
+        $seasonService = new SeasonService($openLigaClient);
+        $seasonService->setMaxRounds(3);
+        $matchList = $seasonService->getUpcomingMatches();
+
+        $this->assertInstanceOf(EmptyMatchList::class, $matchList);
+
+    }
+
     protected function aClient()
     {
         return new HttpClient();

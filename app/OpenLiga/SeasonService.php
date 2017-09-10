@@ -15,11 +15,18 @@ class SeasonService
      * @var Client
      */
     private $client;
+    private $maxRounds = 34;
 
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
+
+    public function setMaxRounds(int $newMax)
+    {
+        $this->maxRounds = $newMax;
+    }
+
     public function getSeason(int $year): Season
     {
         $allMatches = collect($this->client->fetchAllMatchesBySeason($year));
@@ -42,11 +49,20 @@ class SeasonService
             return $match->finished === false;
         });
 
+        $upcomingMatches = collect([]);
+
         if($currentUpcomingMatches->isEmpty()) {
             $currentRoundId = $seasonBuilder->extractRoundId($currentRoundMatchData);
-            $nextRoundMatchData = $this->client->fetchMatchesForRound($currentRoundId + 1 );
+            $nextRoundId = $currentRoundId + 1;
+            if($nextRoundId <= $this->maxRounds) {
+                $nextRoundMatchData = $this->client->fetchMatchesForRound($nextRoundId);
+            }
         } else {
             $upcomingMatches = $currentUpcomingMatches;
+        }
+
+        if($upcomingMatches->isEmpty()) {
+            return new EmptyMatchList();
         }
 
         return new MatchList([
