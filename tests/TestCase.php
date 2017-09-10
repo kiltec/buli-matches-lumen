@@ -29,4 +29,16 @@ abstract class TestCase extends \Laravel\Lumen\Testing\TestCase
         PHPUnit::assertContains($value, $this->response->getContent());
         return $this;
     }
+
+    /**
+     * Assert that the given string is not contained within the response.
+     *
+     * @param  string $value
+     * @return $this
+     */
+    public function assertDontSee($value)
+    {
+        PHPUnit::assertNotContains($value, $this->response->getContent());
+        return $this;
+    }
 }
