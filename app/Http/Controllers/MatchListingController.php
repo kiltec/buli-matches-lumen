@@ -11,11 +11,11 @@ class MatchListingController extends Controller
     /**
      * @var SeasonService
      */
-    private $seasonDataService;
+    private $seasonService;
 
     public function __construct(SeasonService $seasonDataService)
     {
-        $this->seasonDataService = $seasonDataService;
+        $this->seasonService = $seasonDataService;
     }
 
     public function index($year)
@@ -24,7 +24,7 @@ class MatchListingController extends Controller
             $year = Carbon::now()->year;
         }
 
-        $season = $this->seasonDataService->getSeason($year);
+        $season = $this->seasonService->getSeason($year);
 
         return view('matches.index', ['season' => $season]);
     }
