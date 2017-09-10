@@ -49,9 +49,9 @@ class SeasonService
             $nextRoundId = $currentRoundId + 1;
             if($nextRoundId <= $this->maxRounds) {
                 $nextRoundMatchData = $this->client->fetchMatchesForRound($nextRoundId);
-                $upcomingMatches = $this->getUpcomingMatchesFromRoundData($nextRoundMatchData);
                 $seasonName = $this->seasonBuilder->extractSeasonName(collect($nextRoundMatchData));
                 $roundName = $this->seasonBuilder->extractRoundName($nextRoundMatchData);
+                $upcomingMatches = $this->getUpcomingMatchesFromRoundData($nextRoundMatchData);
             }
         }
 
