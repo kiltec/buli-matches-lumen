@@ -26,6 +26,7 @@ class ViewMatchListingTest extends TestCase
         $this->seasonService = Mockery::mock(SeasonService::class);
         $this->app->instance(SeasonService::class, $this->seasonService);
     }
+
     /**
      * @test
      */
@@ -34,73 +35,7 @@ class ViewMatchListingTest extends TestCase
         $this->seasonService
             ->shouldReceive('getCurrentSeason')
             ->andReturn(
-                new Season([
-                    'name' => '1. Fußball-Bundesliga 2017/2018',
-                    'rounds' => collect([
-                        new SeasonRound([
-                            'name' => '1. Spieltag',
-                            'matches' => collect([
-                                new Match([
-                                    'dateTime' => '2017-12-15 15:30',
-                                    'finished' => true,
-                                    'team1' => new Team(["name" => "Hamburger SV"]),
-                                    'team2' => new Team(["name" => "Bayern München"]),
-                                    "results" =>
-                                        new MatchResults([
-                                            'finalScore' => new Score([
-                                                "pointsTeam1" => 10,
-                                                "pointsTeam2" => 2,
-                                            ])
-                                        ]),
-                                ]),
-                                new Match([
-                                    'dateTime' => '2017-12-15 15:30',
-                                    'finished' => true,
-                                    'team1' => new Team(["name" => "St. Pauli"]),
-                                    'team2' => new Team(["name" => "Werder Bremen"]),
-                                    "results" =>
-                                        new MatchResults([
-                                            'finalScore' => new Score([
-                                                "pointsTeam1" => 4,
-                                                "pointsTeam2" => 2,
-                                            ])
-                                        ]),
-                                ]),
-                            ])
-                        ]),
-                        new SeasonRound([
-                            'name' => '2. Spieltag',
-                            'matches' => collect([
-                                new Match([
-                                    'dateTime' => '2017-12-22 15:30',
-                                    'finished' => false,
-                                    'team1' => new Team(["name" => "Hamburger SV"]),
-                                    'team2' => new Team(["name" => "Bayern München"]),
-                                    "results" =>
-                                        new MatchResults([
-                                            'finalScore' => new Score([
-                                                "pointsTeam1" => 0,
-                                                "pointsTeam2" => 0,
-                                            ]),
-                                        ]),
-                                ]),
-                                new Match([
-                                    'dateTime' => '2017-12-22 15:30',
-                                    'finished' => false,
-                                    'team1' => new Team(["name" => "St. Mauli"]),
-                                    'team2' => new Team(["name" => "Lok Leipzig"]),
-                                    "results" =>
-                                        new MatchResults([
-                                            'finalScore' => new Score([
-                                                "pointsTeam1" => 0,
-                                                "pointsTeam2" => 0,
-                                            ]),
-                                        ]),
-                                ]),
-                            ])
-                        ]),
-                    ])
-                ])
+                $this->aSeason()
             )->once();
 
         $response = $this->get('/all-matches/');
@@ -117,5 +52,79 @@ class ViewMatchListingTest extends TestCase
         $response->assertSee('St. Mauli');
         $response->assertSee('Lok Leipzig');
         $response->assertSee('-:-');
+    }
+
+    /**
+     * @return Season
+     */
+    protected function aSeason(): Season
+    {
+        return new Season([
+            'name' => '1. Fußball-Bundesliga 2017/2018',
+            'rounds' => collect([
+                new SeasonRound([
+                    'name' => '1. Spieltag',
+                    'matches' => collect([
+                        new Match([
+                            'dateTime' => '2017-12-15 15:30',
+                            'finished' => true,
+                            'team1' => new Team(["name" => "Hamburger SV"]),
+                            'team2' => new Team(["name" => "Bayern München"]),
+                            "results" =>
+                                new MatchResults([
+                                    'finalScore' => new Score([
+                                        "pointsTeam1" => 10,
+                                        "pointsTeam2" => 2,
+                                    ])
+                                ]),
+                        ]),
+                        new Match([
+                            'dateTime' => '2017-12-15 15:30',
+                            'finished' => true,
+                            'team1' => new Team(["name" => "St. Pauli"]),
+                            'team2' => new Team(["name" => "Werder Bremen"]),
+                            "results" =>
+                                new MatchResults([
+                                    'finalScore' => new Score([
+                                        "pointsTeam1" => 4,
+                                        "pointsTeam2" => 2,
+                                    ])
+                                ]),
+                        ]),
+                    ])
+                ]),
+                new SeasonRound([
+                    'name' => '2. Spieltag',
+                    'matches' => collect([
+                        new Match([
+                            'dateTime' => '2017-12-22 15:30',
+                            'finished' => false,
+                            'team1' => new Team(["name" => "Hamburger SV"]),
+                            'team2' => new Team(["name" => "Bayern München"]),
+                            "results" =>
+                                new MatchResults([
+                                    'finalScore' => new Score([
+                                        "pointsTeam1" => 0,
+                                        "pointsTeam2" => 0,
+                                    ]),
+                                ]),
+                        ]),
+                        new Match([
+                            'dateTime' => '2017-12-22 15:30',
+                            'finished' => false,
+                            'team1' => new Team(["name" => "St. Mauli"]),
+                            'team2' => new Team(["name" => "Lok Leipzig"]),
+                            "results" =>
+                                new MatchResults([
+                                    'finalScore' => new Score([
+                                        "pointsTeam1" => 0,
+                                        "pointsTeam2" => 0,
+                                    ]),
+                                ]),
+                        ]),
+                    ])
+                ]),
+            ])
+        ]);
     }
 }
