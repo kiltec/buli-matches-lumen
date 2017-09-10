@@ -62,7 +62,7 @@ class SeasonService
         $matchListName = sprintf('%s - %s', $seasonName, $roundName);
         return new MatchList([
             'infoText' => $matchListName,
-            'matches' => null,
+            'matches' => $upcomingMatches,
         ]);
     }
 

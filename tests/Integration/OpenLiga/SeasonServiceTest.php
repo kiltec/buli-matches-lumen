@@ -266,6 +266,8 @@ class SeasonServiceTest extends TestCase
 
         $this->assertInstanceOf(MatchList::class, $matchList);
         $this->assertEquals('1. Fußball-Bundesliga 2017/2018 - 3. Spieltag', $matchList->infoText);
+        $this->assertTrue($matchList->matches->isNotEmpty());
+        $this->assertInstanceOf(Match::class, $matchList->matches->first());
     }
 
     protected function aClient()
