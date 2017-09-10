@@ -21,9 +21,9 @@ class SeasonService
     {
         $this->client = $client;
     }
-    public function getSeason(): Season
+    public function getSeason(int $year): Season
     {
-        $allMatches = collect($this->client->fetchCurrentSeason());
+        $allMatches = collect($this->client->fetchCurrentSeason($year));
 
         $seasonName = $allMatches->first()['LeagueName'];
 

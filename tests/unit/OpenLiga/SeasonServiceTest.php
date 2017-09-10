@@ -16,6 +16,7 @@ use Tests\TestCase;
 
 class SeasonServiceTest extends TestCase
 {
+    const SOME_YEAR = 2017;
     /**
      * @var Mockery\Mock
      */
@@ -28,6 +29,7 @@ class SeasonServiceTest extends TestCase
         $this->openLigaClient = Mockery::mock(Client::class);
         $this->openLigaClient
             ->shouldReceive('fetchCurrentSeason')
+            ->with(self::SOME_YEAR)
             ->andReturn(
                 $this->seasonData()
             )->once();
@@ -41,7 +43,7 @@ class SeasonServiceTest extends TestCase
     {
         $seasonService = new SeasonService($this->openLigaClient);
 
-        $currentSeason = $seasonService->getSeason();
+        $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
         $this->assertEquals('1. Fußball-Bundesliga 2017/2018', $currentSeason->name);
     }
 
@@ -52,7 +54,7 @@ class SeasonServiceTest extends TestCase
     {
         $seasonService = new SeasonService($this->openLigaClient);
 
-        $currentSeason = $seasonService->getSeason();
+        $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
         $rounds = $currentSeason->rounds;
 
         $this->assertInstanceOf(Collection::class, $rounds, 'Rounds are no Collection!');
@@ -80,7 +82,7 @@ class SeasonServiceTest extends TestCase
     {
         $seasonService = new SeasonService($this->openLigaClient);
 
-        $currentSeason = $seasonService->getSeason();
+        $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
         $rounds = $currentSeason->rounds;
 
         $this->assertEmpty(
@@ -108,7 +110,7 @@ class SeasonServiceTest extends TestCase
     {
         $seasonService = new SeasonService($this->openLigaClient);
 
-        $currentSeason = $seasonService->getSeason();
+        $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
         $rounds = $currentSeason->rounds;
 
         $matchesFirstRound = $rounds->first()->matches;
@@ -145,7 +147,7 @@ class SeasonServiceTest extends TestCase
     {
         $seasonService = new SeasonService($this->openLigaClient);
 
-        $currentSeason = $seasonService->getSeason();
+        $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
 
         /**
          * @var $matchesFirstRound Collection
