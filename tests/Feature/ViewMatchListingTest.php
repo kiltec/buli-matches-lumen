@@ -14,6 +14,9 @@ use Tests\TestCase;
 class ViewMatchListingTest extends TestCase
 {
 
+    /**
+     * @var Mockery\Mock
+     */
     private $seasonService;
 
     public function setUp()
