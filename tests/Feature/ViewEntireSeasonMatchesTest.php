@@ -13,7 +13,7 @@ use Carbon\Carbon;
 use Mockery;
 use Tests\TestCase;
 
-class ViewMatchListingTest extends TestCase
+class ViewEntireSeasonMatchesTest extends TestCase
 {
     /**
      * @var Mockery\Mock
