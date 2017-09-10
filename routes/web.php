@@ -15,3 +15,8 @@ $router->get('all-matches/{year}', [
     'as' => 'all-matches',
     'uses' => 'MatchListingController@index'
 ]);
+
+$router->get('upcoming-matches', [
+    'as' => 'upcoming-matches',
+    'uses' => 'MatchListingController@upcoming'
+]);

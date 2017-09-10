@@ -21,4 +21,8 @@ class HttpClient implements Client
         return \GuzzleHttp\json_decode((string)$response->getBody(), true);
     }
 
+    public function fetchCurrentRoundMatches(): array
+    {
+        return [];
+    }
 }

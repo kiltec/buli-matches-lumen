@@ -3,6 +3,7 @@ namespace Tests\Integration\OpenLiga;
 
 use App\OpenLiga\Clients\Client;
 use App\OpenLiga\Clients\HttpClient;
+use App\OpenLiga\Entities\EmptyMatchList;
 use App\OpenLiga\Entities\Match;
 use App\OpenLiga\Entities\MatchResults;
 use App\OpenLiga\Entities\Score;
@@ -193,6 +194,26 @@ class SeasonServiceTest extends TestCase
         $season = $seasonService->getSeason($unscheduledYear);
 
         $this->assertInstanceOf(UnknownSeason::class, $season);
+    }
+
+    /**
+     * @test
+     */
+    public function empty_matchlist_when_no_upcoming_matches()
+    {
+
+        $openLigaClient = Mockery::mock(Client::class);
+        $openLigaClient
+            ->shouldReceive('fetchCurrentRoundMatches')
+            ->andReturn(
+                []
+            )->once();
+
+        $seasonService = new SeasonService($openLigaClient);
+
+        $matchList = $seasonService->getUpcomingMatches();
+
+        $this->assertInstanceOf(EmptyMatchList::class, $matchList);
     }
 
     protected function aClient()

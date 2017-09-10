@@ -28,4 +28,11 @@ class MatchListingController extends Controller
 
         return view('matches.index', ['season' => $season]);
     }
+
+    public function upcoming()
+    {
+        $matchList = $this->seasonService->getUpcomingMatches();
+
+        return view('matches.upcoming', ['matchList' => $matchList]);
+    }
 }
