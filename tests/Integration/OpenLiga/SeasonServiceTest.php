@@ -429,4 +429,184 @@ class SeasonServiceTest extends TestCase
   }
 ]', true);
     }
+
+    private function aRoundWithUpcomingMatches()
+    {
+        return json_decode('[
+  {
+    "MatchID": 45461,
+    "MatchDateTime": "2017-09-08T20:30:00",
+    "TimeZoneID": "W. Europe Standard Time",
+    "LeagueId": 4153,
+    "LeagueName": "1. Fußball-Bundesliga 2017/2018",
+    "MatchDateTimeUTC": "2017-09-08T18:30:00Z",
+    "Group": {
+      "GroupName": "3. Spieltag",
+      "GroupOrderID": 3,
+      "GroupID": 28949
+    },
+    "Team1": {
+      "TeamId": 100,
+      "TeamName": "Hamburger SV",
+      "ShortName": "HSV",
+      "TeamIconUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/HSV-Logo.svg/20px-HSV-Logo.svg.png"
+    },
+    "Team2": {
+      "TeamId": 1635,
+      "TeamName": "RB Leipzig",
+      "ShortName": "",
+      "TeamIconUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/0/04/RB_Leipzig_2014_logo.svg/20px-RB_Leipzig_2014_logo.svg.png"
+    },
+    "LastUpdateDateTime": "2017-09-08T22:22:07.21",
+    "MatchIsFinished": false,
+    "MatchResults": [
+      {
+        "ResultID": 75874,
+        "ResultName": "Halbzeitergebnis",
+        "PointsTeam1": 0,
+        "PointsTeam2": 0,
+        "ResultOrderID": 1,
+        "ResultTypeID": 1,
+        "ResultDescription": "Ergebnis zur Halbzeit"
+      },
+      {
+        "ResultID": 75875,
+        "ResultName": "Endergebnis",
+        "PointsTeam1": 0,
+        "PointsTeam2": 2,
+        "ResultOrderID": 2,
+        "ResultTypeID": 2,
+        "ResultDescription": "Ergebnis nach Spielende"
+      }
+    ],
+    "Goals": [
+      {
+        "GoalID": 60632,
+        "ScoreTeam1": 0,
+        "ScoreTeam2": 1,
+        "MatchMinute": 67,
+        "GoalGetterID": 16054,
+        "GoalGetterName": "Naby Keita",
+        "IsPenalty": false,
+        "IsOwnGoal": false,
+        "IsOvertime": false,
+        "Comment": null
+      },
+      {
+        "GoalID": 60633,
+        "ScoreTeam1": 0,
+        "ScoreTeam2": 2,
+        "MatchMinute": 75,
+        "GoalGetterID": 16080,
+        "GoalGetterName": "Timo Werner",
+        "IsPenalty": false,
+        "IsOwnGoal": false,
+        "IsOvertime": false,
+        "Comment": null
+      }
+    ],
+    "Location": null,
+    "NumberOfViewers": null
+  },
+  {
+    "MatchID": 45462,
+    "MatchDateTime": "2017-09-09T15:30:00",
+    "TimeZoneID": "W. Europe Standard Time",
+    "LeagueId": 4153,
+    "LeagueName": "1. Fußball-Bundesliga 2017/2018",
+    "MatchDateTimeUTC": "2017-09-09T13:30:00Z",
+    "Group": {
+      "GroupName": "3. Spieltag",
+      "GroupOrderID": 3,
+      "GroupID": 28949
+    },
+    "Team1": {
+      "TeamId": 81,
+      "TeamName": "1. FSV Mainz 05",
+      "ShortName": "Mainz 05",
+      "TeamIconUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/FSV_Mainz_05_Logo.png/20px-FSV_Mainz_05_Logo.png"
+    },
+    "Team2": {
+      "TeamId": 6,
+      "TeamName": "Bayer 04 Leverkusen",
+      "ShortName": "Leverkusen",
+      "TeamIconUrl": "https://upload.wikimedia.org/wikipedia/de/thumb/f/f7/Bayer_Leverkusen_Logo.svg/20px-Bayer_Leverkusen_Logo.svg.png"
+    },
+    "LastUpdateDateTime": "2017-09-09T17:21:46.62",
+    "MatchIsFinished": true,
+    "MatchResults": [
+      {
+        "ResultID": 75901,
+        "ResultName": "Halbzeitergebnis",
+        "PointsTeam1": 1,
+        "PointsTeam2": 1,
+        "ResultOrderID": 1,
+        "ResultTypeID": 1,
+        "ResultDescription": "Ergebnis zur Halbzeit"
+      },
+      {
+        "ResultID": 75905,
+        "ResultName": "Endergebnis",
+        "PointsTeam1": 3,
+        "PointsTeam2": 1,
+        "ResultOrderID": 2,
+        "ResultTypeID": 2,
+        "ResultDescription": "Ergebnis nach Spielende"
+      }
+    ],
+    "Goals": [
+      {
+        "GoalID": 60659,
+        "ScoreTeam1": 0,
+        "ScoreTeam2": 1,
+        "MatchMinute": 22,
+        "GoalGetterID": 7038,
+        "GoalGetterName": "Kohr",
+        "IsPenalty": false,
+        "IsOwnGoal": false,
+        "IsOvertime": false,
+        "Comment": null
+      },
+      {
+        "GoalID": 60676,
+        "ScoreTeam1": 1,
+        "ScoreTeam2": 1,
+        "MatchMinute": 45,
+        "GoalGetterID": 15370,
+        "GoalGetterName": "Muto",
+        "IsPenalty": false,
+        "IsOwnGoal": false,
+        "IsOvertime": false,
+        "Comment": null
+      },
+      {
+        "GoalID": 60701,
+        "ScoreTeam1": 2,
+        "ScoreTeam2": 1,
+        "MatchMinute": 57,
+        "GoalGetterID": 0,
+        "GoalGetterName": "",
+        "IsPenalty": false,
+        "IsOwnGoal": false,
+        "IsOvertime": false,
+        "Comment": null
+      },
+      {
+        "GoalID": 60702,
+        "ScoreTeam1": 3,
+        "ScoreTeam2": 1,
+        "MatchMinute": 71,
+        "GoalGetterID": 0,
+        "GoalGetterName": "",
+        "IsPenalty": false,
+        "IsOwnGoal": false,
+        "IsOvertime": false,
+        "Comment": null
+      }
+    ],
+    "Location": null,
+    "NumberOfViewers": null
+  }
+]', true);
+    }
 }
