@@ -201,7 +201,7 @@ class SeasonServiceTest extends TestCase
     /**
      * @test
      */
-    public function it_request_matches_from_next_round_when_no_upcoming_current_round_matches()
+    public function it_requests_matches_from_next_round_when_no_upcoming_current_round_matches()
     {
         $openLigaClient = Mockery::mock(Client::class);
         $openLigaClient
