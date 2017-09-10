@@ -201,30 +201,6 @@ class SeasonServiceTest extends TestCase
     /**
      * @test
      */
-    public function it_requests_matches_from_next_round_when_no_upcoming_current_round_matches()
-    {
-        $openLigaClient = Mockery::mock(Client::class);
-        $openLigaClient
-            ->shouldReceive('fetchCurrentRoundMatches')
-            ->andReturn(
-                $this->aRoundWithNoUpcomingMatches()
-            )->once();
-
-        $openLigaClient
-            ->shouldReceive('fetchMatchesForRound')
-            ->with(4)
-            ->andReturn($this->aRoundWithUpcomingMatches())
-            ->once();
-
-        $seasonService = new SeasonService($openLigaClient);
-        $matchList = $seasonService->getUpcomingMatches();
-
-        $this->assertInstanceOf(MatchList::class, $matchList);
-    }
-
-    /**
-     * @test
-     */
     public function it_returns_empty_match_list_when_no_upcoming_current_matches_and_no_next_round_available()
     {
         $openLigaClient = Mockery::mock(Client::class);
@@ -268,6 +244,30 @@ class SeasonServiceTest extends TestCase
         $this->assertEquals('1. Fußball-Bundesliga 2017/2018 - 3. Spieltag', $matchList->infoText);
         $this->assertTrue($matchList->matches->isNotEmpty());
         $this->assertInstanceOf(Match::class, $matchList->matches->first());
+    }
+
+    /**
+     * @test
+     */
+    public function it_requests_matches_from_next_round_when_no_upcoming_current_round_matches()
+    {
+        $openLigaClient = Mockery::mock(Client::class);
+        $openLigaClient
+            ->shouldReceive('fetchCurrentRoundMatches')
+            ->andReturn(
+                $this->aRoundWithNoUpcomingMatches()
+            )->once();
+
+        $openLigaClient
+            ->shouldReceive('fetchMatchesForRound')
+            ->with(4)
+            ->andReturn($this->aRoundWithUpcomingMatches())
+            ->once();
+
+        $seasonService = new SeasonService($openLigaClient);
+        $matchList = $seasonService->getUpcomingMatches();
+
+        $this->assertInstanceOf(MatchList::class, $matchList);
     }
 
     protected function aClient()
