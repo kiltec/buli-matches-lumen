@@ -16,15 +16,13 @@ use Illuminate\Support\Collection;
 use Mockery;
 use Tests\TestCase;
 
-/**
- * @group external
- */
 class SeasonServiceTest extends TestCase
 {
     const SOME_YEAR = 2015;
 
     /**
      * @test
+     * @group external
      */
     public function current_season_has_correct_name()
     {
@@ -36,6 +34,7 @@ class SeasonServiceTest extends TestCase
 
     /**
      * @test
+     * @group external
      */
     public function current_season_has_rounds()
     {
@@ -63,6 +62,7 @@ class SeasonServiceTest extends TestCase
 
     /**
      * @test
+     * @group external
      */
     public function current_season_rounds_have_names()
     {
@@ -91,6 +91,7 @@ class SeasonServiceTest extends TestCase
 
     /**
      * @test
+     * @group external
      */
     public function current_season_rounds_have_matches()
     {
@@ -128,6 +129,7 @@ class SeasonServiceTest extends TestCase
 
     /**
      * @test
+     * @group external
      */
     public function current_season_matches_have_correct_data()
     {
