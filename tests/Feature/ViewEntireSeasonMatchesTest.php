@@ -143,26 +143,14 @@ class ViewEntireSeasonMatchesTest extends TestCase
                             'finished' => false,
                             'team1' => new Team(["name" => "Hamburger SV"]),
                             'team2' => new Team(["name" => "Bayern München"]),
-                            "results" =>
-                                new MatchResults([
-                                    'finalScore' => new Score([
-                                        "pointsTeam1" => 0,
-                                        "pointsTeam2" => 0,
-                                    ]),
-                                ]),
+                            "results" => null,
                         ]),
                         new Match([
                             'dateTime' => '2017-12-22 15:30',
                             'finished' => false,
                             'team1' => new Team(["name" => "St. Mauli"]),
                             'team2' => new Team(["name" => "Lok Leipzig"]),
-                            "results" =>
-                                new MatchResults([
-                                    'finalScore' => new Score([
-                                        "pointsTeam1" => 0,
-                                        "pointsTeam2" => 0,
-                                    ]),
-                                ]),
+                            "results" => null,
                         ]),
                     ])
                 ]),
