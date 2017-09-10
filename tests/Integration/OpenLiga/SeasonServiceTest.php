@@ -207,7 +207,7 @@ class SeasonServiceTest extends TestCase
         $openLigaClient
             ->shouldReceive('fetchCurrentRoundMatches')
             ->andReturn(
-                $this->aCurrentRoundWithNoUnfinishedMatches()
+                $this->aRoundWithNoUpcomingMatches()
             )->once();
 
         $openLigaClient
@@ -230,7 +230,7 @@ class SeasonServiceTest extends TestCase
         $openLigaClient
             ->shouldReceive('fetchCurrentRoundMatches')
             ->andReturn(
-                $this->aCurrentRoundWithNoUnfinishedMatches()
+                $this->aRoundWithNoUpcomingMatches()
             )->once();
 
         $openLigaClient
@@ -250,7 +250,7 @@ class SeasonServiceTest extends TestCase
         return new HttpClient();
     }
 
-    private function aCurrentRoundWithNoUnfinishedMatches()
+    private function aRoundWithNoUpcomingMatches()
     {
         return json_decode('[
   {
