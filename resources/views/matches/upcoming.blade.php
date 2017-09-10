@@ -10,20 +10,25 @@
               integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     </head>
     <body>
-        <h1>Upcoming Matches</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Upcoming Matches</h1>
 
-        <h2>{{ $matchList->infoText }}</h2>
+                    <h2>{{ $matchList->infoText }}</h2>
 
-        <ul id="upcoming-matches">
-            @foreach($matchList->matches as $match)
-                <li>
-                    {{ $match->dateTime }}
-                    {{ $match->team1->name }} vs. {{ $match->team2->name }}
-                    -:-
-                </li>
-            @endforeach
-        </ul>
-
+                    <ul id="upcoming-matches" class="list-group">
+                        @foreach($matchList->matches as $match)
+                            <li class="list-group-item">
+                                {{ $match->dateTime }}
+                                {{ $match->team1->name }} vs. {{ $match->team2->name }}
+                                -:-
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
