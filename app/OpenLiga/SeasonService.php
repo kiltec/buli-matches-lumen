@@ -8,6 +8,7 @@ use App\OpenLiga\Entities\Score;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\Entities\Team;
+use App\OpenLiga\Entities\UnknownSeason;
 use Illuminate\Support\Carbon;
 
 class SeasonService
@@ -24,6 +25,10 @@ class SeasonService
     public function getSeason(int $year): Season
     {
         $allMatches = collect($this->client->fetchCurrentSeason($year));
+
+        if($allMatches->isEmpty()) {
+            return new UnknownSeason();
+        }
 
         $seasonName = $allMatches->first()['LeagueName'];
 

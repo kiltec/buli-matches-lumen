@@ -8,6 +8,7 @@ use App\OpenLiga\Entities\Score;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\Entities\Team;
+use App\OpenLiga\Entities\UnknownSeason;
 use App\OpenLiga\SeasonService;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
@@ -166,6 +167,28 @@ class SeasonServiceTest extends TestCase
         $this->assertEquals('Hertha BSC', $lastMatch->team1->name);
         $this->assertEquals('Bayern München', $lastMatch->team2->name);
         $this->assertEquals(null, $lastMatch->results);
+    }
+
+    /**
+     * @test
+     */
+    public function unknown_season_when_season_unscheduled()
+    {
+        $unscheduledYear = 2031;
+
+        $openLigaClient = Mockery::mock(Client::class);
+        $openLigaClient
+            ->shouldReceive('fetchCurrentSeason')
+            ->with($unscheduledYear)
+            ->andReturn(
+                []
+            )->once();
+
+        $seasonService = new SeasonService($openLigaClient);
+
+        $season = $seasonService->getSeason($unscheduledYear);
+
+        $this->assertInstanceOf(UnknownSeason::class, $season);
     }
 
     /**

@@ -7,6 +7,7 @@ use App\OpenLiga\Entities\Score;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\Entities\Team;
+use App\OpenLiga\Entities\UnknownSeason;
 use App\OpenLiga\SeasonService;
 use Carbon\Carbon;
 use Mockery;
@@ -73,6 +74,26 @@ class ViewMatchListingTest extends TestCase
         $response = $this->get('/all-matches/' . $invalidYear);
 
         $response->assertResponseOk();
+    }
+
+    /**
+     * @test
+     */
+    public function user_gets_empty_season_when_season_not_yet_scheduled()
+    {
+        $unscheduledYear = Carbon::now()->addYears(10)->year;
+
+        $this->seasonService
+            ->shouldReceive('getSeason')
+            ->with($unscheduledYear)
+            ->andReturn(
+                new UnknownSeason()
+            )->once();
+
+        $response = $this->get('/all-matches/' . $unscheduledYear);
+
+        $response->assertResponseOk();
+        $response->assertSee('Unknown Season');
     }
 
     /**
