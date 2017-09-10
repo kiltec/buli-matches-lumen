@@ -59,7 +59,7 @@ class ViewEntireSeasonMatchesTest extends TestCase
     /**
      * @test
      */
-    public function user_get_matches_for_current_season_when_requested_season_invalid()
+    public function user_gets_matches_for_current_season_when_requested_season_invalid()
     {
         $invalidSeason = 'invalid_season';
         $currentSeason = Carbon::now()->year;
