@@ -33,7 +33,7 @@ class ViewMatchListingTest extends TestCase
     public function user_can_view_list_of_all_matches_of_current_season()
     {
         $this->seasonService
-            ->shouldReceive('getCurrentSeason')
+            ->shouldReceive('getSeason')
             ->andReturn(
                 $this->aSeason()
             )->once();

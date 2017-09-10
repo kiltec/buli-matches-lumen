@@ -41,7 +41,7 @@ class SeasonServiceTest extends TestCase
     {
         $seasonService = new SeasonService($this->openLigaClient);
 
-        $currentSeason = $seasonService->getCurrentSeason();
+        $currentSeason = $seasonService->getSeason();
         $this->assertEquals('1. Fußball-Bundesliga 2017/2018', $currentSeason->name);
     }
 
@@ -52,7 +52,7 @@ class SeasonServiceTest extends TestCase
     {
         $seasonService = new SeasonService($this->openLigaClient);
 
-        $currentSeason = $seasonService->getCurrentSeason();
+        $currentSeason = $seasonService->getSeason();
         $rounds = $currentSeason->rounds;
 
         $this->assertInstanceOf(Collection::class, $rounds, 'Rounds are no Collection!');
@@ -80,7 +80,7 @@ class SeasonServiceTest extends TestCase
     {
         $seasonService = new SeasonService($this->openLigaClient);
 
-        $currentSeason = $seasonService->getCurrentSeason();
+        $currentSeason = $seasonService->getSeason();
         $rounds = $currentSeason->rounds;
 
         $this->assertEmpty(
@@ -108,7 +108,7 @@ class SeasonServiceTest extends TestCase
     {
         $seasonService = new SeasonService($this->openLigaClient);
 
-        $currentSeason = $seasonService->getCurrentSeason();
+        $currentSeason = $seasonService->getSeason();
         $rounds = $currentSeason->rounds;
 
         $matchesFirstRound = $rounds->first()->matches;
@@ -145,7 +145,7 @@ class SeasonServiceTest extends TestCase
     {
         $seasonService = new SeasonService($this->openLigaClient);
 
-        $currentSeason = $seasonService->getCurrentSeason();
+        $currentSeason = $seasonService->getSeason();
 
         /**
          * @var $matchesFirstRound Collection
