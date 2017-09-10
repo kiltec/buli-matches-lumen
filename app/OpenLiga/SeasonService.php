@@ -24,7 +24,7 @@ class SeasonService
     }
     public function getSeason(int $year): Season
     {
-        $allMatches = collect($this->client->fetchCurrentSeason($year));
+        $allMatches = collect($this->client->fetchAllMatchesBySeason($year));
 
         if($allMatches->isEmpty()) {
             return new UnknownSeason();

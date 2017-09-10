@@ -178,7 +178,7 @@ class SeasonServiceTest extends TestCase
 
         $openLigaClient = Mockery::mock(Client::class);
         $openLigaClient
-            ->shouldReceive('fetchCurrentSeason')
+            ->shouldReceive('fetchAllMatchesBySeason')
             ->with($unscheduledYear)
             ->andReturn(
                 []
@@ -3347,7 +3347,7 @@ class SeasonServiceTest extends TestCase
         $openLigaClient = Mockery::mock(Client::class);
 
         $openLigaClient
-            ->shouldReceive('fetchCurrentSeason')
+            ->shouldReceive('fetchAllMatchesBySeason')
             ->with(self::SOME_YEAR)
             ->andReturn(
                 $this->seasonData()

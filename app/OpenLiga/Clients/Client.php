@@ -3,6 +3,5 @@ namespace App\OpenLiga\Clients;
 
 interface Client
 {
-
-    public function fetchCurrentSeason(): array;
+    public function fetchAllMatchesBySeason(int $season): array;
 }
