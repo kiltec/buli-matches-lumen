@@ -16,7 +16,7 @@ use Tests\TestCase;
 
 class SeasonServiceTest extends TestCase
 {
-    const SOME_YEAR = 2017;
+    const SOME_YEAR = 2015;
     /**
      * @var Mockery\Mock
      */
