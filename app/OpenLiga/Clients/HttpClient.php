@@ -26,7 +26,7 @@ class HttpClient implements Client
         return [];
     }
 
-    public function fetchMatchesForRound(int $roundId): array
+    public function fetchMatchesForRound(int $roundId, int $season): array
     {
         // TODO: Implement fetchMatchesForRound() method.
     }

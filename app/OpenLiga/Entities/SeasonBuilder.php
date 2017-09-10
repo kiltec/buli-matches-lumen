@@ -97,4 +97,22 @@ class SeasonBuilder
         return $seasonName;
     }
 
+    /**
+     * There doesn't seem to be another way to get an ID of a season.
+     * There is the LeagueId, which might be an unique ID for a season.
+     * However, it isn't used for many API calls, especially not for getting
+     * the game day data of a given season.
+     * We cannot simply take the current date at the time of a request because in a given year, there
+     * are two seasons and using the current year early in the year, will refer to the following season...
+     *
+     * Maybe I don't see something obvious but here we go and get ugly by extracting the season ID from
+     * the season name...
+     */
+    public function extractSeasonId(array $currentRoundMatchData): int
+    {
+        $seasonName = $this->extractSeasonName(collect($currentRoundMatchData));
+        preg_match('#(\d{4})/\d{4}#', $seasonName, $matches);
+
+        return $matches[1];
+    }
 }

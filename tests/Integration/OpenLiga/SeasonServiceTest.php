@@ -260,7 +260,7 @@ class SeasonServiceTest extends TestCase
 
         $openLigaClient
             ->shouldReceive('fetchMatchesForRound')
-            ->with(4)
+            ->with(4, 2017)
             ->andReturn($this->aRoundWithUpcomingMatchesFromNextRound())
             ->once();
 
