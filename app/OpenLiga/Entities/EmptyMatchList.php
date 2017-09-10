@@ -1,11 +1,8 @@
 <?php
 namespace App\OpenLiga\Entities;
 
-class EmptyMatchList
+class EmptyMatchList extends MatchList
 {
-    public $infoText;
-    public $matches;
-
     public function __construct()
     {
         $this->infoText = 'No matches available.';

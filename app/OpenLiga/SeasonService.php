@@ -3,6 +3,7 @@ namespace App\OpenLiga;
 
 use App\OpenLiga\Clients\Client;
 use App\OpenLiga\Entities\EmptyMatchList;
+use App\OpenLiga\Entities\MatchList;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonBuilder;
 
@@ -25,7 +26,7 @@ class SeasonService
         return $seasonBuilder->from($allMatches);
     }
 
-    public function getUpcomingMatches(): EmptyMatchList
+    public function getUpcomingMatches(): MatchList
     {
         $currentRoundMatches = collect($this->client->fetchCurrentRoundMatches());
 
