@@ -59,19 +59,19 @@ class ViewEntireSeasonMatchesTest extends TestCase
     /**
      * @test
      */
-    public function user_get_matches_for_current_year_when_requested_year_invalid()
+    public function user_get_matches_for_current_season_when_requested_season_invalid()
     {
-        $invalidYear = 'invalid_year';
-        $currentYear = Carbon::now()->year;
+        $invalidSeason = 'invalid_season';
+        $currentSeason = Carbon::now()->year;
 
         $this->seasonService
             ->shouldReceive('getSeason')
-            ->with($currentYear)
+            ->with($currentSeason)
             ->andReturn(
                 $this->aSeason()
             )->once();
 
-        $response = $this->get('/all-matches/' . $invalidYear);
+        $response = $this->get('/all-matches/' . $invalidSeason);
 
         $response->assertResponseOk();
     }
@@ -81,16 +81,16 @@ class ViewEntireSeasonMatchesTest extends TestCase
      */
     public function user_gets_empty_season_when_season_not_yet_scheduled()
     {
-        $unscheduledYear = Carbon::now()->addYears(10)->year;
+        $unscheduledSeason = Carbon::now()->addYears(10)->year;
 
         $this->seasonService
             ->shouldReceive('getSeason')
-            ->with($unscheduledYear)
+            ->with($unscheduledSeason)
             ->andReturn(
                 new UnknownSeason()
             )->once();
 
-        $response = $this->get('/all-matches/' . $unscheduledYear);
+        $response = $this->get('/all-matches/' . $unscheduledSeason);
 
         $response->assertResponseOk();
         $response->assertSee('Unknown Season');
