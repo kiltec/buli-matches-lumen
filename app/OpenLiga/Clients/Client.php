@@ -5,4 +5,5 @@ interface Client
 {
     public function fetchAllMatchesBySeason(int $season): array;
     public function fetchCurrentRoundMatches(): array;
+    public function fetchMatchesForRound(int $roundId): array;
 }

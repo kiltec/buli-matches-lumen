@@ -25,4 +25,9 @@ class HttpClient implements Client
     {
         return [];
     }
+
+    public function fetchMatchesForRound(int $roundId): array
+    {
+        // TODO: Implement fetchMatchesForRound() method.
+    }
 }

@@ -3,9 +3,11 @@ namespace App\OpenLiga;
 
 use App\OpenLiga\Clients\Client;
 use App\OpenLiga\Entities\EmptyMatchList;
+use App\OpenLiga\Entities\Match;
 use App\OpenLiga\Entities\MatchList;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonBuilder;
+use Illuminate\Support\Collection;
 
 class SeasonService
 {
@@ -28,10 +30,28 @@ class SeasonService
 
     public function getUpcomingMatches(): MatchList
     {
-        $currentRoundMatches = collect($this->client->fetchCurrentRoundMatches());
+        $currentRoundMatchData = $this->client->fetchCurrentRoundMatches();
 
-        if($currentRoundMatches->isEmpty()) {
-            return new EmptyMatchList();
+        $seasonBuilder = new SeasonBuilder();
+        $currentRound = $seasonBuilder->buildSeasonRound($currentRoundMatchData);
+        /**
+         * @var $currentRoundMatches Collection
+         */
+        $currentRoundMatches = $currentRound->matches;
+        $currentUpcomingMatches = $currentRoundMatches->filter(function(Match $match){
+            return $match->finished === false;
+        });
+
+        if($currentUpcomingMatches->isEmpty()) {
+            $currentRoundId = $seasonBuilder->extractRoundId($currentRoundMatchData);
+            $nextRoundMatchData = $this->client->fetchMatchesForRound($currentRoundId + 1 );
+        } else {
+            $upcomingMatches = $currentUpcomingMatches;
         }
+
+        return new MatchList([
+            'infoText' => '',
+            'matches' => null,
+        ]);
     }
 }

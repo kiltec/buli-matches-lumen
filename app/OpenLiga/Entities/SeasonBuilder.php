@@ -32,7 +32,7 @@ class SeasonBuilder
         return $rounds;
     }
 
-    private function buildSeasonRound($matches): SeasonRound
+    public function buildSeasonRound($matches): SeasonRound
     {
         return new SeasonRound([
             'name' => $this->extractRoundName($matches),
@@ -43,6 +43,11 @@ class SeasonBuilder
     private function extractRoundName($matches)
     {
         return array_get($matches[0], 'Group.GroupName');
+    }
+
+    public function extractRoundId($matches):int
+    {
+        return (int)array_get($matches[0], 'Group.GroupOrderID');
     }
 
     private function buildMatches($matches): Collection
