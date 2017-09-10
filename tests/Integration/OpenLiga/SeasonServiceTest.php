@@ -243,7 +243,29 @@ class SeasonServiceTest extends TestCase
         $matchList = $seasonService->getUpcomingMatches();
 
         $this->assertInstanceOf(EmptyMatchList::class, $matchList);
+    }
 
+    /**
+     * @test
+     */
+    public function it_returns_correct_match_list_when_upcoming_matches_in_current_round_available()
+    {
+        $openLigaClient = Mockery::mock(Client::class);
+        $openLigaClient
+            ->shouldReceive('fetchCurrentRoundMatches')
+            ->andReturn(
+                $this->aRoundWithUpcomingMatches()
+            )->once();
+
+        $openLigaClient
+            ->shouldReceive('fetchMatchesForRound')
+            ->never();
+
+        $seasonService = new SeasonService($openLigaClient);
+        $matchList = $seasonService->getUpcomingMatches();
+
+        $this->assertInstanceOf(MatchList::class, $matchList);
+        $this->assertEquals('1. Fußball-Bundesliga 2017/2018 - 3. Spieltag', $matchList->infoText);
     }
 
     protected function aClient()

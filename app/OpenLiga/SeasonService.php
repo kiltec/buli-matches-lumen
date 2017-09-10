@@ -39,6 +39,8 @@ class SeasonService
     public function getUpcomingMatches(): MatchList
     {
         $currentRoundMatchData = $this->client->fetchCurrentRoundMatches();
+        $seasonName = $this->seasonBuilder->extractSeasonName(collect($currentRoundMatchData));
+        $roundName = $this->seasonBuilder->extractRoundName($currentRoundMatchData);
 
         $upcomingMatches = $this->getUpcomingMatchesFromRoundData($currentRoundMatchData);
 
@@ -48,6 +50,8 @@ class SeasonService
             if($nextRoundId <= $this->maxRounds) {
                 $nextRoundMatchData = $this->client->fetchMatchesForRound($nextRoundId);
                 $upcomingMatches = $this->getUpcomingMatchesFromRoundData($nextRoundMatchData);
+                $seasonName = $this->seasonBuilder->extractSeasonName(collect($nextRoundMatchData));
+                $roundName = $this->seasonBuilder->extractRoundName($nextRoundMatchData);
             }
         }
 
@@ -55,8 +59,9 @@ class SeasonService
             return new EmptyMatchList();
         }
 
+        $matchListName = sprintf('%s - %s', $seasonName, $roundName);
         return new MatchList([
-            'infoText' => '',
+            'infoText' => $matchListName,
             'matches' => null,
         ]);
     }

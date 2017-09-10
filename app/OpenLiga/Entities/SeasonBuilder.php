@@ -40,7 +40,7 @@ class SeasonBuilder
         ]);
     }
 
-    private function extractRoundName($matches)
+    public function extractRoundName($matches):string
     {
         return array_get($matches[0], 'Group.GroupName');
     }
@@ -91,9 +91,10 @@ class SeasonBuilder
         ]);
     }
 
-    private function extractSeasonName(Collection $allMatches): string
+    public function extractSeasonName(Collection $allMatches): string
     {
         $seasonName = $allMatches->first()['LeagueName'];
         return $seasonName;
     }
+
 }
