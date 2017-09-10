@@ -58,6 +58,26 @@ class ViewMatchListingTest extends TestCase
     }
 
     /**
+     * @test
+     */
+    public function user_get_matches_for_current_year_when_requested_year_invalid()
+    {
+        $currentYear = Carbon::now()->year;
+        $invalidYear = 'invalid_year';
+
+        $this->seasonService
+            ->shouldReceive('getSeason')
+            ->with($currentYear)
+            ->andReturn(
+                $this->aSeason()
+            )->once();
+
+        $response = $this->get('/all-matches/' . $invalidYear);
+
+        $response->assertResponseOk();
+    }
+
+    /**
      * @return Season
      */
     protected function aSeason(): Season
