@@ -17,31 +17,13 @@ use Tests\TestCase;
 class SeasonServiceTest extends TestCase
 {
     const SOME_YEAR = 2015;
-    /**
-     * @var Mockery\Mock
-     */
-    private $openLigaClient;
-
-    public function setUp()
-    {
-        parent::setup();
-
-        $this->openLigaClient = Mockery::mock(Client::class);
-        $this->openLigaClient
-            ->shouldReceive('fetchCurrentSeason')
-            ->with(self::SOME_YEAR)
-            ->andReturn(
-                $this->seasonData()
-            )->once();
-    }
-
 
     /**
      * @test
      */
     public function current_season_has_correct_name()
     {
-        $seasonService = new SeasonService($this->openLigaClient);
+        $seasonService = new SeasonService($this->aClient());
 
         $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
         $this->assertEquals('1. Fußball-Bundesliga 2017/2018', $currentSeason->name);
@@ -52,7 +34,7 @@ class SeasonServiceTest extends TestCase
      */
     public function current_season_has_rounds()
     {
-        $seasonService = new SeasonService($this->openLigaClient);
+        $seasonService = new SeasonService($this->aClient());
 
         $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
         $rounds = $currentSeason->rounds;
@@ -72,7 +54,6 @@ class SeasonServiceTest extends TestCase
             }),
             'Rounds collection contains items which are not rounds!'
         );
-
     }
 
     /**
@@ -80,7 +61,7 @@ class SeasonServiceTest extends TestCase
      */
     public function current_season_rounds_have_names()
     {
-        $seasonService = new SeasonService($this->openLigaClient);
+        $seasonService = new SeasonService($this->aClient());
 
         $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
         $rounds = $currentSeason->rounds;
@@ -108,7 +89,7 @@ class SeasonServiceTest extends TestCase
      */
     public function current_season_rounds_have_matches()
     {
-        $seasonService = new SeasonService($this->openLigaClient);
+        $seasonService = new SeasonService($this->aClient());
 
         $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
         $rounds = $currentSeason->rounds;
@@ -145,7 +126,7 @@ class SeasonServiceTest extends TestCase
      */
     public function current_season_matches_have_correct_data()
     {
-        $seasonService = new SeasonService($this->openLigaClient);
+        $seasonService = new SeasonService($this->aClient());
 
         $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
 
@@ -3336,5 +3317,19 @@ class SeasonServiceTest extends TestCase
   }
 ]
 ', true);
+    }
+
+    protected function aClient()
+    {
+        $openLigaClient = Mockery::mock(Client::class);
+
+        $openLigaClient
+            ->shouldReceive('fetchCurrentSeason')
+            ->with(self::SOME_YEAR)
+            ->andReturn(
+                $this->seasonData()
+            )->once();
+
+        return $openLigaClient;
     }
 }
