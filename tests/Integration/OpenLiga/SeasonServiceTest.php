@@ -213,6 +213,7 @@ class SeasonServiceTest extends TestCase
         $openLigaClient
             ->shouldReceive('fetchMatchesForRound')
             ->with(4)
+            ->andReturn($this->aRoundWithUpcomingMatches())
             ->once();
 
         $seasonService = new SeasonService($openLigaClient);

@@ -16,10 +16,12 @@ class SeasonService
      */
     private $client;
     private $maxRounds = 34;
+    private $seasonBuilder;
 
     public function __construct(Client $client)
     {
         $this->client = $client;
+        $this->seasonBuilder = new SeasonBuilder();
     }
 
     public function setMaxRounds(int $newMax)
@@ -31,34 +33,22 @@ class SeasonService
     {
         $allMatches = collect($this->client->fetchAllMatchesBySeason($year));
 
-        $seasonBuilder = new SeasonBuilder();
-        return $seasonBuilder->from($allMatches);
+        return $this->seasonBuilder->from($allMatches);
     }
 
     public function getUpcomingMatches(): MatchList
     {
         $currentRoundMatchData = $this->client->fetchCurrentRoundMatches();
 
-        $seasonBuilder = new SeasonBuilder();
-        $currentRound = $seasonBuilder->buildSeasonRound($currentRoundMatchData);
-        /**
-         * @var $currentRoundMatches Collection
-         */
-        $currentRoundMatches = $currentRound->matches;
-        $currentUpcomingMatches = $currentRoundMatches->filter(function(Match $match){
-            return $match->finished === false;
-        });
+        $upcomingMatches = $this->getUpcomingMatchesFromRoundData($currentRoundMatchData);
 
-        $upcomingMatches = collect([]);
-
-        if($currentUpcomingMatches->isEmpty()) {
-            $currentRoundId = $seasonBuilder->extractRoundId($currentRoundMatchData);
+        if($upcomingMatches->isEmpty()) {
+            $currentRoundId = $this->seasonBuilder->extractRoundId($currentRoundMatchData);
             $nextRoundId = $currentRoundId + 1;
             if($nextRoundId <= $this->maxRounds) {
                 $nextRoundMatchData = $this->client->fetchMatchesForRound($nextRoundId);
+                $upcomingMatches = $this->getUpcomingMatchesFromRoundData($nextRoundMatchData);
             }
-        } else {
-            $upcomingMatches = $currentUpcomingMatches;
         }
 
         if($upcomingMatches->isEmpty()) {
@@ -69,5 +59,18 @@ class SeasonService
             'infoText' => '',
             'matches' => null,
         ]);
+    }
+
+    private function getUpcomingMatchesFromRoundData($currentRoundMatchData): Collection
+    {
+        $currentRound = $this->seasonBuilder->buildSeasonRound($currentRoundMatchData);
+
+        /**
+         * @var $currentRoundMatches Collection
+         */
+        $currentRoundMatches = $currentRound->matches;
+        return $currentRoundMatches->filter(function (Match $match) {
+            return $match->finished === false;
+        });
     }
 }
