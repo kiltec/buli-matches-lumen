@@ -10,6 +10,9 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+$router->get('/', ['as' => 'home', function() {
+    return view('home.index');
+}]);
 
 $router->get('all-matches/{year}', [
     'as' => 'all-matches',
