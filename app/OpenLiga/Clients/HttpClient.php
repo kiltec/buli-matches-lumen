@@ -23,11 +23,16 @@ class HttpClient implements Client
 
     public function fetchCurrentRoundMatches(): array
     {
-        return [];
+        $response = $this->guzzle->request('GET', 'https://www.openligadb.de/api/getmatchdata/bl1/');
+
+        return \GuzzleHttp\json_decode((string)$response->getBody(), true);
     }
 
     public function fetchMatchesForRound(int $roundId, int $season): array
     {
-        // TODO: Implement fetchMatchesForRound() method.
+        $uri = sprintf('https://www.openligadb.de/api/getmatchdata/bl1/%d/%d', $season, $roundId);
+        $response = $this->guzzle->request('GET', $uri);
+
+        return \GuzzleHttp\json_decode((string)$response->getBody(), true);
     }
 }
