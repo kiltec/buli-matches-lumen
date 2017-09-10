@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Unit\OpenLiga;
+namespace Tests\Integration\OpenLiga;
 
 use App\OpenLiga\Clients\Client;
 use App\OpenLiga\Clients\HttpClient;
