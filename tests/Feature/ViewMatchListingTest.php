@@ -32,16 +32,14 @@ class ViewMatchListingTest extends TestCase
      */
     public function user_can_view_list_of_all_matches_of_a_given_season()
     {
-        $currentYear = Carbon::now()->year;
-
         $this->seasonService
             ->shouldReceive('getSeason')
-            ->with($currentYear)
+            ->with($this->aYear())
             ->andReturn(
                 $this->aSeason()
             )->once();
 
-        $response = $this->get('/all-matches/' . $currentYear);
+        $response = $this->get('/all-matches/' . $this->aYear());
 
         $response->assertResponseOk();
         $response->assertSee('1. Fußball-Bundesliga 2017/2018');
@@ -62,8 +60,8 @@ class ViewMatchListingTest extends TestCase
      */
     public function user_get_matches_for_current_year_when_requested_year_invalid()
     {
-        $currentYear = Carbon::now()->year;
         $invalidYear = 'invalid_year';
+        $currentYear = Carbon::now()->year;
 
         $this->seasonService
             ->shouldReceive('getSeason')
@@ -149,5 +147,13 @@ class ViewMatchListingTest extends TestCase
                 ]),
             ])
         ]);
+    }
+
+    /**
+     * A year which is not the current year
+     */
+    protected function aYear(): int
+    {
+        return Carbon::now()->year + 1;
     }
 }

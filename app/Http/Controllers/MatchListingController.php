@@ -20,7 +20,7 @@ class MatchListingController extends Controller
 
     public function index($year)
     {
-        if(!is_int($year) || $year < self::BL_FOUNDING_YEAR) {
+        if($year < self::BL_FOUNDING_YEAR) {
             $year = Carbon::now()->year;
         }
 
