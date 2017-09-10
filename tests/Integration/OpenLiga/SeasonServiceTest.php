@@ -268,6 +268,10 @@ class SeasonServiceTest extends TestCase
         $matchList = $seasonService->getUpcomingMatches();
 
         $this->assertInstanceOf(MatchList::class, $matchList);
+        $this->assertInstanceOf(MatchList::class, $matchList);
+        $this->assertEquals('Next Round Liga 2017/2018 - 3. Spieltag', $matchList->infoText);
+        $this->assertTrue($matchList->matches->isNotEmpty());
+        $this->assertInstanceOf(Match::class, $matchList->matches->first());
     }
 
     protected function aClient()
