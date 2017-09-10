@@ -26,6 +26,6 @@ class MatchListingController extends Controller
 
         $season = $this->seasonDataService->getSeason($year);
 
-        return view('all-matches.index', ['season' => $season]);
+        return view('matches.index', ['season' => $season]);
     }
 }
