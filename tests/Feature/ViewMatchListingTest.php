@@ -8,12 +8,12 @@ use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\Entities\Team;
 use App\OpenLiga\SeasonService;
+use Carbon\Carbon;
 use Mockery;
 use Tests\TestCase;
 
 class ViewMatchListingTest extends TestCase
 {
-
     /**
      * @var Mockery\Mock
      */
@@ -30,15 +30,18 @@ class ViewMatchListingTest extends TestCase
     /**
      * @test
      */
-    public function user_can_view_list_of_all_matches_of_current_season()
+    public function user_can_view_list_of_all_matches_of_a_given_season()
     {
+        $currentYear = Carbon::now()->year;
+
         $this->seasonService
             ->shouldReceive('getSeason')
+            ->with($currentYear)
             ->andReturn(
                 $this->aSeason()
             )->once();
 
-        $response = $this->get('/all-matches/');
+        $response = $this->get('/all-matches/' . $currentYear);
 
         $response->assertResponseOk();
         $response->assertSee('1. Fußball-Bundesliga 2017/2018');
