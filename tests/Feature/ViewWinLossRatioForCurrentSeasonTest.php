@@ -52,7 +52,7 @@ class ViewWinLossRatioForCurrentSeasonTest extends TestCase
     /**
      * @test
      */
-    public function user_sees_no_ratio_list_when_no_season_data_available()
+    public function user_sees_no_ratio_list_when_no_ratios_available()
     {
         $season = 2012;
 
