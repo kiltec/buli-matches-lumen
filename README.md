@@ -21,10 +21,8 @@ You need to have [Composer](https://getcomposer.org/) and [Vagrant](https://www.
     - Open `Homestead.yaml` in your favorite editor
     - Replace the path in `map: /home/lars/projects/private/buli-matches` with the path to your clone of this repo.
     - Edit your `/etc/hosts/` by adding `192.168.10.10	buli-matches.dev`. If that IP is already taken, change it in `Homestead.yaml`
+    - Run `composer install`
     - Now run `vagrant up` in the folder of your clone, this might take a while to finish
-    - You might have to run `composer install` before `vagrant up`
-    - `vagrant ssh`
-    - `cd Code && composer install`
     - Open a browser and navigate to (http://buli-matches.dev/)
     - *Tadaaa*
     
