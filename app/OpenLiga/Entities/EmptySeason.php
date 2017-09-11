@@ -1,12 +1,12 @@
 <?php
 namespace App\OpenLiga\Entities;
 
-class UnknownSeason extends Season
+class EmptySeason extends Season
 {
     public function __construct()
     {
         parent::__construct([
-            'name' => 'Unknown Season',
+            'name' => 'No matches available',
             'rounds' => [],
         ]);
     }

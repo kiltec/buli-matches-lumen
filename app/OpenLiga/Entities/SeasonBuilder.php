@@ -9,7 +9,7 @@ class SeasonBuilder
     public function from(Collection $allMatches): Season
     {
         if ($allMatches->isEmpty()) {
-            return new UnknownSeason();
+            return new EmptySeason();
         }
 
         $seasonName = $this->extractSeasonName($allMatches);

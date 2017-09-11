@@ -7,7 +7,7 @@ use App\OpenLiga\Entities\Score;
 use App\OpenLiga\Entities\Season;
 use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\Entities\Team;
-use App\OpenLiga\Entities\UnknownSeason;
+use App\OpenLiga\Entities\EmptySeason;
 use App\OpenLiga\SeasonService;
 use Carbon\Carbon;
 use Mockery;
@@ -87,13 +87,13 @@ class ViewEntireSeasonMatchesTest extends TestCase
             ->shouldReceive('getSeason')
             ->with($unscheduledSeason)
             ->andReturn(
-                new UnknownSeason()
+                new EmptySeason()
             )->once();
 
         $response = $this->get('/all-matches/' . $unscheduledSeason);
 
         $response->assertResponseOk();
-        $response->assertSee('Unknown Season');
+        $response->assertSee('No matches available');
     }
 
     /**

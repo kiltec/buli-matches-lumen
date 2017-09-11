@@ -10,7 +10,7 @@ use App\OpenLiga\Entities\MatchResults;
 use App\OpenLiga\Entities\Score;
 use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\Entities\Team;
-use App\OpenLiga\Entities\UnknownSeason;
+use App\OpenLiga\Entities\EmptySeason;
 use App\OpenLiga\SeasonService;
 use Illuminate\Support\Collection;
 use Mockery;
@@ -195,7 +195,7 @@ class SeasonServiceTest extends TestCase
 
         $season = $seasonService->getSeason($unscheduledYear);
 
-        $this->assertInstanceOf(UnknownSeason::class, $season);
+        $this->assertInstanceOf(EmptySeason::class, $season);
     }
 
     /**
