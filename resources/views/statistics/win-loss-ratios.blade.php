@@ -3,6 +3,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1>{{ $teamRatioList->name }}</h1>
+                @if($teamRatioList->teamRatios->isNotEmpty())
                 <table id="#win-loss-ratios" class="table col-lg-12">
                     <thead>
                     <tr>
@@ -23,6 +24,7 @@
                     @endforeach
                     </tbody>
                 </table>
+                @endif
             </div>
         </div>
 @endsection

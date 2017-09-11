@@ -1,6 +1,7 @@
 <?php
 namespace Tests\Feature;
 
+use App\OpenLiga\Entities\EmptyTeamRatioList;
 use App\OpenLiga\Entities\Team;
 use App\OpenLiga\Entities\TeamEmtpyRatio;
 use App\OpenLiga\Entities\TeamRatio;
@@ -46,6 +47,27 @@ class ViewWinLossRatioForCurrentSeasonTest extends TestCase
 
         $response->assertResponseOk();
         $this->assertSee('1. Busball-Bundesliga 2017/2018 - Win/Loss-Ratios');
+    }
+
+    /**
+     * @test
+     */
+    public function user_sees_no_ratio_list_when_no_season_data_available()
+    {
+        $season = 2012;
+
+        $this->statisticsService
+            ->shouldReceive('getWinLossRatios')
+            ->with($season)
+            ->andReturn(
+                new EmptyTeamRatioList()
+            )->once();
+
+        $response = $this->get('/win-loss-ratios/' . $season);
+
+        $response->assertResponseOk();
+        $this->assertSee('No Win/Loss Data Available');
+        $response->assertDontSee('#win-loss-ratios');
     }
 
     /**
