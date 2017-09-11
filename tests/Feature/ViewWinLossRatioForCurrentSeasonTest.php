@@ -73,30 +73,6 @@ class ViewWinLossRatioForCurrentSeasonTest extends TestCase
     /**
      * @test
      */
-    public function user_sees_all_teams_but_empty_ratio_when_no_matches_played()
-    {
-        $season = 2012;
-
-        $this->statisticsService
-            ->shouldReceive('getWinLossRatios')
-            ->with($season)
-            ->andReturn(
-                $this->aTeamRatioListWithNoRatios()
-            )->once();
-
-        $response = $this->get('/win-loss-ratios/' . $season);
-
-        $response->assertResponseOk();
-        $response->assertSee('#win-loss-ratios');
-        $this->aTeamRatioListWithNoRatios()->teamRatios->each(function($teamRatio) use ($response) {
-            $response->assertSee($teamRatio->team->name);
-        });
-        $this->assertSee('N/A');
-    }
-
-    /**
-     * @test
-     */
     public function user_sees_the_ratios_for_each_team_when_matches_played()
     {
         $season = 2012;
@@ -119,18 +95,6 @@ class ViewWinLossRatioForCurrentSeasonTest extends TestCase
             $response->assertSee((string)$teamRatio->losses);
         });
 
-    }
-
-    private function aTeamRatioListWithNoRatios(): TeamRatioList
-    {
-        $teamRatios = collect([
-            new TeamEmtpyRatio(['team' => new Team(['name' => 'Hamburger SV'])]),
-            new TeamEmtpyRatio(['team' => new Team(['name' => 'Bleiern Dümmchen'])]),
-            new TeamEmtpyRatio(['team' => new Team(['name' => 'Pharmakusen'])]),
-            new TeamEmtpyRatio(['team' => new Team(['name' => 'Werder Fischkopp'])]),
-        ]);
-
-        return new TeamRatioList(['name' => '1. Busball-Bundesliga 2017/2018 - Win/Loss-Ratios', 'teamRatios' => $teamRatios]);
     }
 
     private function aTeamRatioListWithRatios(): TeamRatioList
