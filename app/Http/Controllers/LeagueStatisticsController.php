@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\OpenLiga\SeasonService;
+use App\OpenLiga\StatisticsService;
 
 class LeagueStatisticsController extends Controller
 {
     /**
-     * @var SeasonService
+     * @var StatisticsService
      */
-    private $seasonService;
+    private $statisticsService;
 
-    public function __construct(SeasonService $seasonService)
+    public function __construct(StatisticsService $statisticsService)
     {
-        $this->seasonService = $seasonService;
+        $this->statisticsService = $statisticsService;
     }
 
     public function winLossRatios()
     {
-        $teamRatioList = $this->seasonService->getWinLossRatios();
+        $teamRatioList = $this->statisticsService->getWinLossRatios();
 
         return view('statistics.win-loss-ratios', ['teamRatioList' => $teamRatioList]);
     }

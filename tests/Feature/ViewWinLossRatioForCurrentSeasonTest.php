@@ -4,7 +4,7 @@ namespace Tests\Feature;
 use App\OpenLiga\Entities\Team;
 use App\OpenLiga\Entities\TeamEmtpyRatio;
 use App\OpenLiga\Entities\TeamRatio;
-use App\OpenLiga\SeasonService;
+use App\OpenLiga\StatisticsService;
 use Illuminate\Support\Collection;
 use Mockery;
 use Tests\TestCase;
@@ -17,14 +17,14 @@ class ViewWinLossRatioForCurrentSeasonTest extends TestCase
     /**
      * @var Mockery\Mock
      */
-    private $seasonService;
+    private $statisticsService;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->seasonService = Mockery::mock(SeasonService::class);
-        $this->app->instance(SeasonService::class, $this->seasonService);
+        $this->statisticsService = Mockery::mock(StatisticsService::class);
+        $this->app->instance(StatisticsService::class, $this->statisticsService);
     }
 
     /**
@@ -32,7 +32,7 @@ class ViewWinLossRatioForCurrentSeasonTest extends TestCase
      */
     public function user_sees_all_teams_but_empty_ratio_when_no_matches_played()
     {
-        $this->seasonService
+        $this->statisticsService
             ->shouldReceive('getWinLossRatios')
             ->andReturn(
                 $this->aTeamRatioListWithNoRatios()
@@ -53,7 +53,7 @@ class ViewWinLossRatioForCurrentSeasonTest extends TestCase
      */
     public function user_sees_the_ratios_for_each_team_when_matches_played()
     {
-        $this->seasonService
+        $this->statisticsService
             ->shouldReceive('getWinLossRatios')
             ->andReturn(
                 $this->aTeamRatioListWithRatios()
