@@ -23,3 +23,8 @@ $router->get('upcoming-matches', [
     'as' => 'upcoming-matches',
     'uses' => 'MatchListingController@upcoming'
 ]);
+
+$router->get('/win-loss-ratios', [
+    'as' => '/win-loss-ratios',
+    'uses' => 'LeagueStatisticsController@winLossRatios'
+]);
