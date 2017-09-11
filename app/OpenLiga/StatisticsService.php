@@ -3,7 +3,9 @@ namespace App\OpenLiga;
 
 use App\OpenLiga\Entities\EmptySeason;
 use App\OpenLiga\Entities\EmptyTeamRatioList;
+use App\OpenLiga\Entities\SeasonRound;
 use App\OpenLiga\Entities\TeamRatioList;
+use Illuminate\Support\Collection;
 
 class StatisticsService
 {
@@ -25,6 +27,17 @@ class StatisticsService
             return new EmptyTeamRatioList();
         }
 
-        return new TeamRatioList(['name' => '', '']);
+        $finishedMatches = $season->rounds->reduce(function(Collection $accumulator, SeasonRound $round) {
+            $roundFinishedMatches = $round->matches->filter(function($match) {
+                return $match->finished;
+            });
+            return $accumulator->merge($roundFinishedMatches);
+        }, collect([]));
+
+        if($finishedMatches->isEmpty()) {
+            return new EmptyTeamRatioList();
+        }
+
+        return new TeamRatioList(['name' => '', 'teamRatios' => '']);
     }
 }
