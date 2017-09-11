@@ -1,7 +1,7 @@
 <?php
 namespace App\OpenLiga\Entities;
 
-class EmptyTeamRatioList
+class EmptyTeamRatioList extends TeamRatioList
 {
     public $name = 'No Win/Loss Data Available';
     public $teamRatios;
