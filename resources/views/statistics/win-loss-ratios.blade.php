@@ -7,14 +7,18 @@
                     <thead>
                     <tr>
                         <th>Team</th>
-                        <th>Win/Loss Ratios</th>
+                        <th>Win %</th>
+                        <th>Wins</th>
+                        <th>Losses</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($teamRatioList as $teamRatio)
                     <tr>
                         <td>{{ $teamRatio->team->name }}</td>
-                        <td>{{  $teamRatio->ratio }}</td>
+                        <td>{{ $teamRatio->ratio }}</td>
+                        <td>{{ $teamRatio->wins }}</td>
+                        <td>{{ $teamRatio->losses }}</td>
                     </tr>
                     @endforeach
                     </tbody>

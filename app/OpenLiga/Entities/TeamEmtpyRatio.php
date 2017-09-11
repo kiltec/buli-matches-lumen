@@ -8,6 +8,8 @@ class TeamEmtpyRatio
      */
     public $team;
     public $ratio = 'N/A';
+    public $wins = 0;
+    public $losses = 0;
 
     public function __construct(array $teamRatioData)
     {
