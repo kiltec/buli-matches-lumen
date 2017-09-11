@@ -26,7 +26,7 @@ class SeasonServiceTest extends TestCase
      */
     public function current_season_has_correct_name()
     {
-        $seasonService = new SeasonService($this->aClient());
+        $seasonService = new SeasonService($this->aHttpClient());
 
         $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
         $this->assertEquals('1. Fußball-Bundesliga 2015/2016', $currentSeason->name);
@@ -38,7 +38,7 @@ class SeasonServiceTest extends TestCase
      */
     public function current_season_has_rounds()
     {
-        $seasonService = new SeasonService($this->aClient());
+        $seasonService = new SeasonService($this->aHttpClient());
 
         $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
         $rounds = $currentSeason->rounds;
@@ -66,7 +66,7 @@ class SeasonServiceTest extends TestCase
      */
     public function current_season_rounds_have_names()
     {
-        $seasonService = new SeasonService($this->aClient());
+        $seasonService = new SeasonService($this->aHttpClient());
 
         $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
         $rounds = $currentSeason->rounds;
@@ -95,7 +95,7 @@ class SeasonServiceTest extends TestCase
      */
     public function current_season_rounds_have_matches()
     {
-        $seasonService = new SeasonService($this->aClient());
+        $seasonService = new SeasonService($this->aHttpClient());
 
         $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
         $rounds = $currentSeason->rounds;
@@ -133,7 +133,7 @@ class SeasonServiceTest extends TestCase
      */
     public function current_season_matches_have_correct_data()
     {
-        $seasonService = new SeasonService($this->aClient());
+        $seasonService = new SeasonService($this->aHttpClient());
 
         $currentSeason = $seasonService->getSeason(self::SOME_YEAR);
 
@@ -274,7 +274,7 @@ class SeasonServiceTest extends TestCase
         $this->assertInstanceOf(Match::class, $matchList->matches->first());
     }
 
-    protected function aClient()
+    protected function aHttpClient()
     {
         return new HttpClient();
     }
