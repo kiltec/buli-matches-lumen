@@ -4,7 +4,7 @@ namespace App\OpenLiga;
 class StatisticsService
 {
 
-    public function getWinLossRatios()
+    public function getWinLossRatios($year)
     {
     }
 }

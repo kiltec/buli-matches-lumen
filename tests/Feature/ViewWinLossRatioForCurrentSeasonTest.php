@@ -32,13 +32,16 @@ class ViewWinLossRatioForCurrentSeasonTest extends TestCase
      */
     public function user_sees_all_teams_but_empty_ratio_when_no_matches_played()
     {
+        $season = 2012;
+
         $this->statisticsService
             ->shouldReceive('getWinLossRatios')
+            ->with($season)
             ->andReturn(
                 $this->aTeamRatioListWithNoRatios()
             )->once();
 
-        $response = $this->get('/win-loss-ratios');
+        $response = $this->get('/win-loss-ratios/' . $season);
 
         $response->assertResponseOk();
         $response->assertSee('#win-loss-ratios');
@@ -53,13 +56,16 @@ class ViewWinLossRatioForCurrentSeasonTest extends TestCase
      */
     public function user_sees_the_ratios_for_each_team_when_matches_played()
     {
+        $season = 2012;
+
         $this->statisticsService
             ->shouldReceive('getWinLossRatios')
+            ->with($season)
             ->andReturn(
                 $this->aTeamRatioListWithRatios()
             )->once();
 
-        $response = $this->get('/win-loss-ratios');
+        $response = $this->get('/win-loss-ratios/' . $season);
 
         $response->assertResponseOk();
         $response->assertSee('#win-loss-ratios');

@@ -16,9 +16,9 @@ class LeagueStatisticsController extends Controller
         $this->statisticsService = $statisticsService;
     }
 
-    public function winLossRatios()
+    public function winLossRatios($year)
     {
-        $teamRatioList = $this->statisticsService->getWinLossRatios();
+        $teamRatioList = $this->statisticsService->getWinLossRatios($year);
 
         return view('statistics.win-loss-ratios', ['teamRatioList' => $teamRatioList]);
     }
